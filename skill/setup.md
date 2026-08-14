@@ -18,21 +18,36 @@ By the end of this session the user will have:
 
 ---
 
-## PHASE 0 — Welcome & overview
+## PHASE 0 — Welcome & overview / Bienvenida y resumen
 
-Start by greeting the user and explaining what's about to happen. Be brief and clear:
+Detect the user's language from their first message and respond in that language throughout. If unsure, use both.
+
+Start by greeting the user and explaining what's about to happen:
 
 ```
+🇬🇧 English:
 👋 Welcome to LinkedIn Job Tracker setup.
 
 I'm going to guide you through everything in one session. Here's what we'll do:
-
 1. Collect your personal info (name, email, CV, etc.)
 2. Configure your job search preferences
 3. Set up Notion to track your applications (optional but recommended)
 4. Generate your personalized skill and a live dashboard
 
 The whole thing takes about 5–10 minutes. Let's start.
+
+---
+
+🇪🇸 Español:
+👋 Bienvenido al setup de LinkedIn Job Tracker.
+
+Voy a guiarte por todo el proceso en una sola conversación. Esto es lo que haremos:
+1. Recopilar tu información personal (nombre, email, CV, etc.)
+2. Configurar tus preferencias de búsqueda de empleo
+3. Configurar Notion para registrar tus aplicaciones (opcional pero recomendado)
+4. Generar tu skill personalizada y un dashboard listo para usar
+
+Todo el proceso dura unos 5–10 minutos. Empezamos.
 ```
 
 Then immediately ask the first question. **Ask questions one at a time** — never dump a list. Wait for each answer before asking the next.

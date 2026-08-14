@@ -4,169 +4,186 @@ description: >
   Automates LinkedIn Easy Apply job applications for [CANDIDATE_NAME].
   Covers search, filtering, form-filling, tracking, and end-of-session Notion sync.
   Run setup.md first to generate your personalized version of this skill.
-  Trigger with: "apply to jobs", "start session", "search LinkedIn", or similar.
+  Trigger with: "apply to jobs", "start session", "busca ofertas", "aplica a trabajos".
 ---
 
-> 🇬🇧 **English** — Generic template. Run `setup.md` first to generate your personalized version. Replace all `[PLACEHOLDERS]` before use.
+> 🇬🇧 **English** — Generic template. Run `setup.md` first to generate your personalized version with your actual data. Replace all `[PLACEHOLDERS]` before use.
 >
-> 🇪🇸 **Español** — Template genérico. Ejecuta `setup.md` primero para generar tu versión personalizada. Reemplaza todos los `[MARCADORES]` antes de usar.
+> 🇪🇸 **Español** — Template genérico. Ejecuta `setup.md` primero para generar tu versión personalizada con tus datos reales. Reemplaza todos los `[MARCADORES]` antes de usar.
+
+---
 
 # LinkedIn Easy Apply
 
-> ⚠️ This is the generic template. Run `setup.md` first to generate your personalized version
-> with your actual data filled in. The placeholders below must be replaced before use.
+## STEP 0 — Session start / Inicio de sesión
 
----
-
-## STEP 0 — Session start
-
-Before any search, ask:
-- Modality today? (Remote / Hybrid / Both / No filter)
+🇬🇧 Before any search, ask:
+- What modality today? (Remote / Hybrid / Both)
 - Which countries/regions?
 - Any specific keyword besides the usual ones?
 
----
-
-## Candidate profile
-
-**Name:** `[YOUR FULL NAME]`
-**Email:** `[YOUR EMAIL]`
-**Phone:** `[YOUR PHONE WITH COUNTRY CODE]`
-**Phone country code:** `[+XX]` — always select this, never leave default
-**Location (for forms):** `[YOUR CITY, COUNTRY]`
-**Portfolio:** `[YOUR PORTFOLIO URL or 'none']`
-**Availability:** `[Immediate / X weeks / X months]`
+🇪🇸 Antes de cualquier búsqueda, preguntar:
+- ¿Qué modalidad hoy? (Remoto / Híbrido / Ambas)
+- ¿Qué países/regiones?
+- ¿Alguna palabra clave específica además de las habituales?
 
 ---
 
-## Search configuration
+## Candidate profile / Perfil del candidato
 
-### Job titles (rotate between sessions)
+| Field / Campo | Value / Valor |
+|---------------|---------------|
+| Name / Nombre | `[YOUR FULL NAME]` |
+| Email | `[YOUR EMAIL]` |
+| Phone / Teléfono | `[YOUR PHONE WITH COUNTRY CODE]` |
+| Country code / Código de país | `[+XX]` — always select this / siempre seleccionar este |
+| Location / Ubicación (forms) | `[YOUR CITY, COUNTRY]` |
+| Portfolio | `[YOUR PORTFOLIO URL or 'none']` |
+| Availability / Disponibilidad | `[Immediate / X weeks / X months]` |
+
+---
+
+## Search configuration / Configuración de búsqueda
+
+### Job titles / Títulos de puesto (rotate between sessions / rotar entre sesiones)
 - `[Job title 1]`
 - `[Job title 2]`
 - `[Job title 3]`
 
-### LinkedIn URL filters
-- `f_AL=true` — Easy Apply only (always required)
-- `f_WT=2` — Remote
-- `f_WT=3` — Hybrid
-- `f_WT=2,3` — Remote + Hybrid (run two searches)
+### LinkedIn URL filters / Filtros de URL
+- `f_AL=true` — Easy Apply only / solo Easy Apply (always required / siempre obligatorio)
+- `f_WT=2` — Remote / Remoto
+- `f_WT=3` — Hybrid / Híbrido
+- `f_WT=2,3` — Remote + Hybrid (run two searches / hacer dos búsquedas)
 
-### Country GeoIDs
-| Country | GeoId |
-|---------|-------|
-| Netherlands | `102890719` |
-| Spain | `105646813` |
-| United Kingdom | `101165590` |
-| United States | `103644278` |
-| Germany | `101282230` |
-| France | `105015875` |
-| Belgium | `100565514` |
-
----
-
-## Skip rules
-
-Skip immediately if the offer matches ANY of these:
-
-**By title:** contains `Senior`, `Sr.`, `Principal`, `Director`, `Head of`, `Lead`, `Staff`, `VP`
-→ Edit this list to match your actual target seniority level
-
-**By language:** offer written only in `[LANGUAGE(S) YOU DON'T SPEAK]` → skip
-
-**By geography:** requires legal authorization to work in US or UK → skip if form asks
+### Country GeoIDs / GeoIDs por país
+| Country / País | GeoId |
+|----------------|-------|
+| Netherlands / Países Bajos | `102890719` |
+| Spain / España | `105646813` |
+| United Kingdom / Reino Unido | `101165590` |
+| United States / Estados Unidos | `103644278` |
+| Germany / Alemania | `101282230` |
+| France / Francia | `105015875` |
+| Belgium / Bélgica | `100565514` |
 
 ---
 
-## Form field values
+## Skip rules / Reglas de descarte
 
-| Field | Value |
-|-------|-------|
-| Full name | `[YOUR FULL NAME]` |
+🇬🇧 Skip immediately if the offer matches ANY of these:
+🇪🇸 Descartar inmediatamente si la oferta cumple CUALQUIERA de estas:
+
+**By title / Por título:**
+Contains `Senior`, `Sr.`, `Principal`, `Director`, `Head of`, `Lead`, `Staff`, `VP`
+→ Edit this list to match your actual seniority target / Edita esta lista según tu seniority objetivo
+
+**By language / Por idioma:**
+🇬🇧 Offer written only in `[LANGUAGE(S) YOU DON'T SPEAK]` → skip
+🇪🇸 Oferta escrita solo en `[IDIOMAS QUE NO HABLAS]` → descartar
+
+**By geography / Por geografía:**
+🇬🇧 Requires legal authorization to work in US or UK → skip if form asks
+🇪🇸 Requiere autorización legal para trabajar en US o UK → descartar si el formulario lo pregunta
+
+---
+
+## Form field values / Valores para el formulario
+
+| Field / Campo | Value / Valor |
+|---------------|---------------|
+| Full name / Nombre completo | `[YOUR FULL NAME]` |
 | Email | `[YOUR EMAIL]` |
-| Phone | `[YOUR PHONE]` |
-| Country code | `[+XX]` — always change, never leave default |
-| Location | `[YOUR CITY, COUNTRY]` |
+| Phone / Teléfono | `[YOUR PHONE]` |
+| Country code / Código de país | `[+XX]` — always change / siempre cambiar |
+| Location / Ubicación | `[YOUR CITY, COUNTRY]` |
 | Portfolio | `[YOUR PORTFOLIO URL]` |
-| Years of experience | `[N]` |
-| Expected salary (annual) | `[AMOUNT CURRENCY]` |
-| Expected salary (monthly USD) | `[AMOUNT]` |
-| Notice period | `[Immediate / X weeks]` |
-| Requires visa sponsorship? | No |
-| Authorized to work? | Yes |
+| Years of experience / Años de experiencia | `[N]` |
+| Expected salary / Salario esperado (annual/anual) | `[AMOUNT CURRENCY]` |
+| Expected salary / Salario esperado (monthly USD/mensual USD) | `[AMOUNT]` |
+| Notice period / Preaviso | `[Immediate / X weeks]` |
+| Requires visa sponsorship? / ¿Requiere patrocinio de visa? | No |
+| Authorized to work? / ¿Autorizado para trabajar? | Yes / Sí |
 
-### CV selection
-| Offer language | CV to use |
-|----------------|-----------|
-| English | `[English CV filename].pdf` |
-| Spanish | `[Spanish CV filename].pdf` |
-| Other | `[Default CV filename].pdf` |
+### CV selection / Selección de CV
+| Offer language / Idioma oferta | CV to use / CV a usar |
+|--------------------------------|-----------------------|
+| English / Inglés | `[English CV filename].pdf` |
+| Spanish / Español | `[Spanish CV filename].pdf` |
+| Other / Otro | `[Default CV filename].pdf` |
 
 ---
 
-## Session tracking
+## Session tracking / Seguimiento durante la sesión
 
-After each application, record immediately:
+🇬🇧 After each application, record immediately:
+🇪🇸 Después de cada aplicación, registrar inmediatamente:
 
 ```json
 {
-  "titulo": "Job title",
-  "empresa": "Company",
-  "ubicacion": "City (modality)",
-  "contacto_reclutador": "Name or Not visible",
+  "titulo": "Job title / Título del puesto",
+  "empresa": "Company / Empresa",
+  "ubicacion": "City (modality) / Ciudad (modalidad)",
+  "contacto_reclutador": "Name or Not visible / Nombre o No visible",
   "url": "https://www.linkedin.com/jobs/view/XXXXXXX/",
   "estado": "Enviada",
-  "resumen_puesto": "2-3 sentence summary",
+  "resumen_puesto": "2-3 sentence summary / Resumen de 2-3 frases",
   "requisitos_clave": ["req1", "req2"],
-  "beneficios": "Benefits listed"
+  "beneficios": "Benefits listed / Beneficios mencionados"
 }
 ```
 
 ---
 
-## Session close
+## Session close / Cierre de sesión
 
-When the session ends:
+🇬🇧 When the session ends (user says "stop", "finish", or no more offers):
+🇪🇸 Cuando la sesión termina (el usuario dice "para", "termina", o no hay más ofertas):
 
-### 1. Summary document
-Generate `applications_[YYYY-MM-DD].md` and send with `SendUserFile`.
+### 1. Summary document / Documento de resumen
+🇬🇧 Generate `applications_[YYYY-MM-DD].md` and send with `SendUserFile`
+🇪🇸 Generar `aplicaciones_[YYYY-MM-DD].md` y enviar con `SendUserFile`
 
-### 2. Write to Notion
-Use `notion-create-pages` with:
-- **Parent:** `{"database_id": "[YOUR_NOTION_DATABASE_ID]", "type": "database_id"}`
+### 2. Write to Notion / Escribir en Notion
+🇬🇧 Use `notion-create-pages` with parent `{"database_id": "[YOUR_NOTION_DATABASE_ID]", "type": "database_id"}`
+🇪🇸 Usar `notion-create-pages` con parent `{"database_id": "[TU_NOTION_DATABASE_ID]", "type": "database_id"}`
 
-| Notion property | Value |
-|-----------------|-------|
-| `Título` | Job title |
-| `Empresa` | Company |
+| Notion property / Propiedad | Value / Valor |
+|-----------------------------|---------------|
+| `Título` | Job title / Título del puesto |
+| `Empresa` | Company / Empresa |
 | `Estado` | `"Enviada"` |
 | `País` | `NL` / `ES` / `UK` / `US` / `Global` |
-| `Fecha` | Today YYYY-MM-DD |
-| `userDefined:URL` | LinkedIn job URL |
-| `Reclutador` | Recruiter name or `"Not visible"` |
+| `Fecha` | Today YYYY-MM-DD / Hoy YYYY-MM-DD |
+| `userDefined:URL` | LinkedIn job URL ⚠️ exact name / nombre exacto |
+| `Reclutador` | Name or `"Not visible"` / Nombre o `"No visible"` |
 | `Sesión` | Session date YYYY-MM-DD |
-| `Resumen` | Role summary |
-| `Requisitos` | Requirements joined with `", "` |
-| `Beneficios` | Benefits or `""` |
+| `Resumen` | Role summary / Resumen del puesto |
+| `Requisitos` | Requirements joined with `", "` / Requisitos unidos con `", "` |
+| `Beneficios` | Benefits or `""` / Beneficios o `""` |
 | `Rating` | `0` |
 | `Notas` | `""` |
 
-Confirm: `✓ [N] applications saved to Notion — open the dashboard and press Sync`
+🇬🇧 Confirm: `✓ [N] applications saved to Notion — open the dashboard and press Sync`
+🇪🇸 Confirmar: `✓ [N] aplicaciones guardadas en Notion — abre el dashboard y pulsa Sync`
 
-### 3. Fallback JSON (if Notion fails)
+### 3. Fallback / Respaldo (if Notion fails / si Notion falla)
+🇬🇧 Show JSON so the user can import manually via the dashboard Import button:
+🇪🇸 Mostrar JSON para que el usuario pueda importarlo manualmente con el botón Import del dashboard:
+
 ```json
 {
   "sesion_id": "YYYY-MM-DD",
-  "aplicaciones": [{ "titulo": "...", "empresa": "...", ... }]
+  "aplicaciones": [{ "titulo": "...", "empresa": "...", "..." : "..." }]
 }
 ```
 
 ---
 
-## Critical rules
+## Critical rules / Reglas críticas (never break / nunca romper)
 
-1. Easy Apply button must be present — otherwise skip
-2. Always change phone country code to your correct one
-3. Always uncheck "Follow company" before submitting
-4. Use the correct CV language version
-5. Skip if work authorization form appears for countries where you're not eligible
+1. 🇬🇧 Easy Apply button must exist — otherwise skip / 🇪🇸 El botón Easy Apply debe existir — si no, saltar
+2. 🇬🇧 Always change phone country code to `[+XX]` / 🇪🇸 Siempre cambiar el código de país del teléfono a `[+XX]`
+3. 🇬🇧 Always uncheck "Follow company" before submitting / 🇪🇸 Siempre desmarcar "Seguir empresa" antes de enviar
+4. 🇬🇧 Correct CV per language / 🇪🇸 CV correcto según el idioma de la oferta
+5. 🇬🇧 Skip if work authorization form appears for US/UK / 🇪🇸 Saltar si aparece formulario de autorización de trabajo en US/UK
