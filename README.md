@@ -135,8 +135,9 @@ Guía completa: [SETUP.md](./SETUP.md)
 
 This tool was built to solve a real problem: applying to dozens of jobs manually is slow, repetitive, and easy to lose track of. LinkedIn Job Tracker automates the grunt work so you can focus on what actually matters — preparing for interviews and choosing the right opportunity.
 
+[![Portfolio](https://img.shields.io/badge/Portfolio-borjalopezdesign.com-teal)](https://borjalopezdesign.com)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Borja%20López-blue?logo=linkedin)](https://linkedin.com/in/borjalopez1)
-[![Portfolio](https://img.shields.io/badge/Portfolio-bjlopez.designer%40gmail.com-teal)](mailto:bjlopez.designer@gmail.com)
+[![Email](https://img.shields.io/badge/Contact-bjlopez.designer%40gmail.com-gray)](mailto:bjlopez.designer@gmail.com)
 
 ---
 
