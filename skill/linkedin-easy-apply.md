@@ -7,6 +7,10 @@ description: >
   Trigger with: "apply to jobs", "start session", "search LinkedIn", or similar.
 ---
 
+> 🇬🇧 **English** — Generic template. Run `setup.md` first to generate your personalized version. Replace all `[PLACEHOLDERS]` before use.
+>
+> 🇪🇸 **Español** — Template genérico. Ejecuta `setup.md` primero para generar tu versión personalizada. Reemplaza todos los `[MARCADORES]` antes de usar.
+
 # LinkedIn Easy Apply
 
 > ⚠️ This is the generic template. Run `setup.md` first to generate your personalized version
