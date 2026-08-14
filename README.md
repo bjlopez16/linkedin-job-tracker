@@ -7,7 +7,7 @@ Apply to dozens of LinkedIn jobs hands-free, track every application in a live d
 
 <br/>
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-teal.svg)](LICENSE)
+[![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](LICENSE)
 [![Built with Claude](https://img.shields.io/badge/Built%20with-Claude%20AI-teal)](https://claude.ai)
 [![Powered by Notion](https://img.shields.io/badge/Syncs%20with-Notion-black)](https://notion.so)
 
@@ -143,5 +143,13 @@ This tool was built to solve a real problem: applying to dozens of jobs manually
 
 ## License
 
-MIT — use it, fork it, build on it.  
-If you ship something with this, a mention or a ⭐ is always appreciated.
+**CC BY-NC 4.0** — Free to use and adapt with attribution. Commercial use requires explicit permission.
+
+- ✅ Use it for your own job search
+- ✅ Fork it, modify it, share it
+- ✅ Credit the author (Borja López — borjalopezdesign.com)
+- ❌ Cannot be sold or used commercially without permission
+
+For commercial licensing: [bjlopez.designer@gmail.com](mailto:bjlopez.designer@gmail.com)
+
+If you find it useful, a ⭐ on GitHub is always appreciated.
