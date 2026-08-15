@@ -171,7 +171,7 @@ Esta skill seguirá evolucionando con el uso real. Si te resulta útil, dar una 
 
 ## Created by
 
-**Borja López** — UX/UI Designer & Product Builder based in Den Bosch, Netherlands.
+**Borja López** — UX/UI Designer & Product Builder.
 
 This tool was built to solve a real problem: applying to dozens of jobs manually is slow, repetitive, and easy to lose track of. LinkedIn Job Tracker automates the grunt work so you can focus on what actually matters — preparing for interviews and choosing the right opportunity.
 
