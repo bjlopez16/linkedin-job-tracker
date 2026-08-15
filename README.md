@@ -72,6 +72,26 @@ Apply to dozens of LinkedIn jobs hands-free, track every application in a live d
 
 Full guide: [SETUP.md](./SETUP.md)
 
+### Current limitations
+
+This skill is currently designed to work exclusively with **LinkedIn Easy Apply** offers — those where the entire application is submitted directly through LinkedIn without leaving the platform. Offers that redirect to an external career portal are skipped automatically.
+
+### Roadmap & contributions
+
+This project is actively maintained and will keep improving. Planned areas:
+
+- Support for more countries and job boards
+- Smarter filtering and scoring of offers
+- Cover letter auto-generation tailored to each offer
+- Follow-up reminders and recruiter tracking automation
+
+**Feedback and improvement proposals are welcome.** If you've used this and have ideas, found a bug, or want to suggest a feature:
+
+- Open an [issue on GitHub](https://github.com/bjlopez16/linkedin-job-tracker/issues)
+- Or reach out directly: [bjlopez.designer@gmail.com](mailto:bjlopez.designer@gmail.com)
+
+This skill will keep evolving with real-world usage. If you find it useful, starring the repo helps others discover it. ⭐
+
 ---
 
 <a name="español"></a>
@@ -126,6 +146,26 @@ Full guide: [SETUP.md](./SETUP.md)
 ```
 
 Guía completa: [SETUP.md](./SETUP.md)
+
+### Limitaciones actuales
+
+Esta skill está actualmente diseñada para funcionar exclusivamente con ofertas de **LinkedIn Easy Apply** (Solicitud sencilla) — aquellas en las que la solicitud se envía directamente desde LinkedIn sin salir de la plataforma. Las ofertas que redirigen a portales externos de empleo se descartan automáticamente.
+
+### Roadmap y contribuciones
+
+Este proyecto se mantiene activamente y seguirá mejorando. Áreas previstas:
+
+- Soporte para más países y portales de empleo
+- Filtrado y puntuación inteligente de ofertas
+- Generación automática de carta de presentación adaptada a cada oferta
+- Recordatorios de seguimiento y automatización del contacto con reclutadores
+
+**Se aceptan propuestas de mejora y feedback.** Si has usado esta herramienta y tienes ideas, has encontrado un error o quieres sugerir una funcionalidad:
+
+- Abre un [issue en GitHub](https://github.com/bjlopez16/linkedin-job-tracker/issues)
+- O contáctame directamente: [bjlopez.designer@gmail.com](mailto:bjlopez.designer@gmail.com)
+
+Esta skill seguirá evolucionando con el uso real. Si te resulta útil, dar una estrella al repo ayuda a que otros la descubran. ⭐
 
 ---
 
