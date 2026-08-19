@@ -10,6 +10,7 @@ Apply to dozens of LinkedIn jobs hands-free, track every application in a live d
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](LICENSE)
 [![Built with Claude](https://img.shields.io/badge/Built%20with-Claude%20AI-teal)](https://claude.ai)
 [![Powered by Notion](https://img.shields.io/badge/Syncs%20with-Notion-black)](https://notion.so)
+[![v2](https://img.shields.io/badge/version-v2%20%E2%80%94%20off--LinkedIn%20applications-orange)](#english)
 
 <br/>
 
@@ -25,7 +26,7 @@ Apply to dozens of LinkedIn jobs hands-free, track every application in a live d
 
 ### What it does
 
-1. **Skill** — Give Claude control of your browser. It searches LinkedIn, filters irrelevant offers, fills every form field with your personal data, and submits applications automatically. At the end of each session it writes every application to your Notion database.
+1. **Skill** — Give Claude control of your browser. It searches LinkedIn, filters irrelevant offers, fills every form field with your personal data, and submits applications automatically — both **Easy Apply** and, as of **v2**, offers that redirect to an external company site or ATS (Greenhouse, Lever, Workday, etc.), using the Claude for Chrome extension to fill the external form, attach your CV/photo, and submit. It only pauses to ask you when a site requires creating a mandatory account. At the end of each session it writes every application to your Notion database.
 
 2. **Dashboard** — A password-protected web app (runs inside Claude or deployable to Vercel) that syncs from Notion and lets you manage your entire pipeline: change statuses, add notes, rate opportunities, track recruiters, and see the full history of every application.
 
@@ -56,7 +57,7 @@ Apply to dozens of LinkedIn jobs hands-free, track every application in a live d
 ### Requirements
 
 - Claude Pro subscription
-- Claude for Chrome extension
+- Claude for Chrome extension (required for external/off-LinkedIn applications in v2)
 - Notion account (free tier)
 - Vercel account (free tier, optional — for browser deployment)
 
@@ -74,16 +75,15 @@ Full guide: [SETUP.md](./SETUP.md)
 
 ### Current limitations
 
-This skill is currently designed to work exclusively with **LinkedIn Easy Apply** offers — those where the entire application is submitted directly through LinkedIn without leaving the platform. Offers that redirect to an external career portal are skipped automatically.
+As of **v2**, this skill applies both to **LinkedIn Easy Apply** offers and to offers that redirect to an **external company site or ATS** (Greenhouse, Lever, Workday, etc.), using the Claude for Chrome extension. On external sites, the whole flow (form filling, CV/photo upload, cover letter, submission) is automatic — the only pause is when a site requires creating a mandatory account (email + password), or hits a CAPTCHA it can't solve, in which case it asks you to step in briefly. Each application is tagged with its `Tipo` (Easy Apply / Externa) and `Plataforma` (LinkedIn, Greenhouse, Lever, Workday...) so you can filter by it in the dashboard.
 
 ### Roadmap & contributions
 
 This project is actively maintained and will keep improving. Planned areas:
 
-- Support for more countries and job boards
 - Smarter filtering and scoring of offers
-- Cover letter auto-generation tailored to each offer
 - Follow-up reminders and recruiter tracking automation
+- Broader ATS-specific handling (Workday, iCIMS, Ashby edge cases)
 
 **Feedback and improvement proposals are welcome.** If you've used this and have ideas, found a bug, or want to suggest a feature:
 
@@ -100,7 +100,7 @@ This skill will keep evolving with real-world usage. If you find it useful, star
 
 ### Qué hace
 
-1. **Skill** — Dale a Claude control de tu navegador. Busca en LinkedIn, filtra las ofertas que no encajan, rellena todos los campos del formulario con tus datos personales y envía las solicitudes automáticamente. Al terminar cada sesión, escribe todas las aplicaciones en tu base de datos de Notion.
+1. **Skill** — Dale a Claude control de tu navegador. Busca en LinkedIn, filtra las ofertas que no encajan, rellena todos los campos del formulario con tus datos personales y envía las solicitudes automáticamente — tanto de **Easy Apply** como, desde la **v2**, ofertas que redirigen a la web de la empresa o a un ATS externo (Greenhouse, Lever, Workday, etc.), usando la extensión Claude for Chrome para rellenar el formulario externo, adjuntar tu CV/foto y enviarlo. Solo se detiene a preguntarte cuando una web exige crear una cuenta obligatoria. Al terminar cada sesión, escribe todas las aplicaciones en tu base de datos de Notion.
 
 2. **Dashboard** — Una aplicación web protegida con contraseña (funciona dentro de Claude o se puede desplegar en Vercel) que sincroniza con Notion y te permite gestionar todo tu pipeline: cambiar estados, añadir notas, valorar oportunidades, hacer seguimiento de reclutadores y ver el historial completo de cada aplicación.
 
@@ -131,7 +131,7 @@ This skill will keep evolving with real-world usage. If you find it useful, star
 ### Requisitos
 
 - Suscripción Claude Pro
-- Extensión Claude for Chrome
+- Extensión Claude for Chrome (imprescindible para aplicaciones externas/fuera de LinkedIn en v2)
 - Cuenta de Notion (plan gratuito funciona)
 - Cuenta de Vercel (gratuito, opcional — para acceso desde el navegador)
 
@@ -149,16 +149,15 @@ Guía completa: [SETUP.md](./SETUP.md)
 
 ### Limitaciones actuales
 
-Esta skill está actualmente diseñada para funcionar exclusivamente con ofertas de **LinkedIn Easy Apply** (Solicitud sencilla) — aquellas en las que la solicitud se envía directamente desde LinkedIn sin salir de la plataforma. Las ofertas que redirigen a portales externos de empleo se descartan automáticamente.
+Desde la **v2**, esta skill aplica tanto a ofertas de **LinkedIn Easy Apply** como a ofertas que redirigen a la **web de la empresa o a un ATS externo** (Greenhouse, Lever, Workday, etc.), usando la extensión Claude for Chrome. En webs externas, todo el proceso (rellenar formulario, subir CV/foto, carta de presentación, envío) es automático — la única pausa es si la web exige crear una cuenta obligatoria (correo + contraseña), o si aparece un CAPTCHA que no puede resolver, momento en el que te pide que intervengas brevemente. Cada aplicación queda etiquetada con su `Tipo` (Easy Apply / Externa) y `Plataforma` (LinkedIn, Greenhouse, Lever, Workday...) para poder filtrarlas en el dashboard.
 
 ### Roadmap y contribuciones
 
 Este proyecto se mantiene activamente y seguirá mejorando. Áreas previstas:
 
-- Soporte para más países y portales de empleo
 - Filtrado y puntuación inteligente de ofertas
-- Generación automática de carta de presentación adaptada a cada oferta
 - Recordatorios de seguimiento y automatización del contacto con reclutadores
+- Manejo específico más amplio por ATS (casos particulares de Workday, iCIMS, Ashby)
 
 **Se aceptan propuestas de mejora y feedback.** Si has usado esta herramienta y tienes ideas, has encontrado un error o quieres sugerir una funcionalidad:
 

@@ -249,6 +249,8 @@ Schema:
   Beneficios (rich_text)
   Rating (number)
   Notas (rich_text)
+  Tipo (select): Easy Apply, Externa
+  Plataforma (rich_text)
 ```
 
 After creating, extract and store the `database_id` from the result.
@@ -432,6 +434,8 @@ After each application, record:
 | Beneficios | Benefits or "" |
 | Rating | 0 |
 | Notas | "" |
+| Tipo | "Easy Apply" or "Externa" |
+| Plataforma | "LinkedIn", "Greenhouse", "Lever", "Workday"... |
 
 **3. Confirm:** `✓ [N] applications saved to Notion — open dashboard and press Sync`
 

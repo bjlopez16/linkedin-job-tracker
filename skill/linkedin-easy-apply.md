@@ -1,7 +1,9 @@
 ---
 name: linkedin-easy-apply
 description: >
-  Automates LinkedIn Easy Apply job applications for [CANDIDATE_NAME].
+  Automates LinkedIn Easy Apply job applications for [CANDIDATE_NAME], and since v2
+  also applications on external company sites / ATS (Greenhouse, Lever, Workday...)
+  via the Claude for Chrome extension.
   Covers search, filtering, form-filling, tracking, and end-of-session Notion sync.
   Run setup.md first to generate your personalized version of this skill.
   Trigger with: "apply to jobs", "start session", "busca ofertas", "aplica a trabajos".
@@ -21,11 +23,13 @@ description: >
 - What modality today? (Remote / Hybrid / Both)
 - Which countries/regions?
 - Any specific keyword besides the usual ones?
+- Include **external applications** too (offers that redirect off LinkedIn to the company site or an ATS)? Yes / No / Easy Apply only
 
 🇪🇸 Antes de cualquier búsqueda, preguntar:
 - ¿Qué modalidad hoy? (Remoto / Híbrido / Ambas)
 - ¿Qué países/regiones?
 - ¿Alguna palabra clave específica además de las habituales?
+- ¿Incluir también **aplicaciones externas** (ofertas que llevan fuera de LinkedIn, a la web de la empresa o a un ATS)? Sí / No / Solo Easy Apply
 
 ---
 
@@ -114,6 +118,26 @@ Contains `Senior`, `Sr.`, `Principal`, `Director`, `Head of`, `Lead`, `Staff`, `
 
 ---
 
+## External applications / Aplicaciones externas (v2)
+
+🇬🇧 When an offer has no Easy Apply button but redirects to the company site or an ATS (Greenhouse, Lever, Workday, Ashby, etc.), and you opted in at Step 0, use the **Claude for Chrome** extension:
+
+- Everything is automatic (fill fields, upload CV/photo, write cover letter, answer screening questions, submit) — **except**: if the site requires creating a mandatory account (email + password), stop and ask the user for credentials before continuing. Also pause on an unsolvable CAPTCHA.
+- Don't stop for optional logins ("continue as guest") — always choose guest/no account.
+- File paths for CV/photo depend on the device you're applying from — keep a small table like this and ask once per session if unclear:
+
+| Device / Dispositivo | English CV | Spanish CV | Photo |
+|---|---|---|---|
+| `[DEVICE NAME]` | `[PATH TO ENGLISH CV]` | `[PATH TO SPANISH CV]` | `[PATH TO PHOTO]` |
+
+🇪🇸 Cuando una oferta no tiene botón Easy Apply pero redirige a la web de la empresa o a un ATS (Greenhouse, Lever, Workday, Ashby, etc.), y se activó en el Paso 0, usar la extensión **Claude for Chrome**:
+
+- Todo es automático (rellenar campos, subir CV/foto, escribir carta de presentación, responder screening, enviar) — **excepto**: si la web exige crear una cuenta obligatoria (correo + contraseña), detenerse y pedir las credenciales al usuario antes de continuar. También pausar si aparece un CAPTCHA que no se puede resolver.
+- No detenerse por logins opcionales ("continuar como invitado") — elegir siempre invitado/sin cuenta.
+- Las rutas de CV/foto dependen del dispositivo desde el que se aplique — mantener una tabla como la de arriba y preguntar una vez por sesión si no está claro.
+
+---
+
 ## Session tracking / Seguimiento durante la sesión
 
 🇬🇧 After each application, record immediately:
@@ -127,6 +151,8 @@ Contains `Senior`, `Sr.`, `Principal`, `Director`, `Head of`, `Lead`, `Staff`, `
   "contacto_reclutador": "Name or Not visible / Nombre o No visible",
   "url": "https://www.linkedin.com/jobs/view/XXXXXXX/",
   "estado": "Enviada",
+  "tipo_aplicacion": "Easy Apply / Externa",
+  "plataforma": "LinkedIn / Greenhouse / Lever / Workday / ...",
   "resumen_puesto": "2-3 sentence summary / Resumen de 2-3 frases",
   "requisitos_clave": ["req1", "req2"],
   "beneficios": "Benefits listed / Beneficios mencionados"
@@ -163,6 +189,8 @@ Contains `Senior`, `Sr.`, `Principal`, `Director`, `Head of`, `Lead`, `Staff`, `
 | `Beneficios` | Benefits or `""` / Beneficios o `""` |
 | `Rating` | `0` |
 | `Notas` | `""` |
+| `Tipo` | `"Easy Apply"` or `"Externa"` / `"Easy Apply"` o `"Externa"` |
+| `Plataforma` | `"LinkedIn"`, `"Greenhouse"`, `"Lever"`, `"Workday"`... |
 
 🇬🇧 Confirm: `✓ [N] applications saved to Notion — open the dashboard and press Sync`
 🇪🇸 Confirmar: `✓ [N] aplicaciones guardadas en Notion — abre el dashboard y pulsa Sync`
@@ -187,3 +215,4 @@ Contains `Senior`, `Sr.`, `Principal`, `Director`, `Head of`, `Lead`, `Staff`, `
 3. 🇬🇧 Always uncheck "Follow company" before submitting / 🇪🇸 Siempre desmarcar "Seguir empresa" antes de enviar
 4. 🇬🇧 Correct CV per language / 🇪🇸 CV correcto según el idioma de la oferta
 5. 🇬🇧 Skip if work authorization form appears for US/UK / 🇪🇸 Saltar si aparece formulario de autorización de trabajo en US/UK
+6. 🇬🇧 External applications: automatic except mandatory registration — only stop to ask the user if the external site requires creating an account / 🇪🇸 Aplicaciones externas: automático salvo registro obligatorio — solo detenerse a preguntar al usuario si la web externa exige crear una cuenta
