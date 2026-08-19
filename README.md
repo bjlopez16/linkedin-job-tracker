@@ -77,9 +77,9 @@ Full guide: [SETUP.md](./SETUP.md)
 
 ### Current limitations
 
-As of **v2**, this skill applies both to **LinkedIn Easy Apply** offers and to offers that redirect to an **external company site or ATS** (Greenhouse, Lever, Workday, etc.), using the Claude for Chrome extension. On external sites, the whole flow (form filling, CV/photo upload, cover letter, submission) is automatic — the only pause is when a site requires creating a mandatory account (email + password), in which case it asks you to step in briefly. Each application is tagged with its `Tipo` (Easy Apply / Externa) and `Plataforma` (LinkedIn, Greenhouse, Lever, Workday...) so you can filter by it in the dashboard.
+As of **v2**, this skill applies both to **LinkedIn Easy Apply** offers and to offers that redirect to an **external company site or ATS** (Greenhouse, Lever, Workday, etc.), using the Claude for Chrome extension. On external sites, the whole flow (form filling, CV/photo upload, cover letter, submission) is automatic and **the session never stops mid-flow** — not even for mandatory account registration.
 
-Offers that hit a blocker the skill can't reliably solve on its own — an unsolvable CAPTCHA, SMS/phone verification, unusual document uploads, a broken form — aren't skipped silently. They're logged during the session and listed in a dedicated **"Pending manual applications"** section of the end-of-session summary document, with title, company, and direct URL, so you can open and finish them yourself.
+Offers that hit a blocker the skill can't reliably solve on its own — a required account signup, an unsolvable CAPTCHA, SMS/phone verification, unusual document uploads, a broken form — aren't skipped silently or asked about in real time. They're logged during the session and listed in a dedicated **"Pending manual applications"** section of the end-of-session summary document, with title, company, and direct URL, so you can review them all at once and finish them yourself. Each successfully submitted application is also tagged with its `Tipo` (Easy Apply / Externa) and `Plataforma` (LinkedIn, Greenhouse, Lever, Workday...) so you can filter by it in the dashboard.
 
 ### Roadmap & contributions
 
@@ -155,9 +155,9 @@ Guía completa: [SETUP.md](./SETUP.md)
 
 ### Limitaciones actuales
 
-Desde la **v2**, esta skill aplica tanto a ofertas de **LinkedIn Easy Apply** como a ofertas que redirigen a la **web de la empresa o a un ATS externo** (Greenhouse, Lever, Workday, etc.), usando la extensión Claude for Chrome. En webs externas, todo el proceso (rellenar formulario, subir CV/foto, carta de presentación, envío) es automático — la única pausa es si la web exige crear una cuenta obligatoria (correo + contraseña), momento en el que te pide que intervengas brevemente. Cada aplicación queda etiquetada con su `Tipo` (Easy Apply / Externa) y `Plataforma` (LinkedIn, Greenhouse, Lever, Workday...) para poder filtrarlas en el dashboard.
+Desde la **v2**, esta skill aplica tanto a ofertas de **LinkedIn Easy Apply** como a ofertas que redirigen a la **web de la empresa o a un ATS externo** (Greenhouse, Lever, Workday, etc.), usando la extensión Claude for Chrome. En webs externas, todo el proceso (rellenar formulario, subir CV/foto, carta de presentación, envío) es automático y **la sesión nunca se detiene a mitad de camino** — ni siquiera si hay que crear una cuenta obligatoria.
 
-Las ofertas que se topan con un bloqueo que la skill no puede resolver de forma fiable —un CAPTCHA sin solución, verificación por SMS/teléfono, documentos poco habituales, un formulario roto— no se descartan en silencio. Quedan registradas durante la sesión y aparecen en un apartado propio, **"Pendientes de aplicación manual"**, dentro del documento de resumen final, con título, empresa y URL directa, para que las abras y las completes tú mismo.
+Las ofertas que se topan con un bloqueo que la skill no puede resolver de forma fiable —registro de cuenta obligatorio, un CAPTCHA sin solución, verificación por SMS/teléfono, documentos poco habituales, un formulario roto— no se descartan en silencio ni se preguntan en tiempo real. Quedan registradas durante la sesión y aparecen en un apartado propio, **"Pendientes de aplicación manual"**, dentro del documento de resumen final, con título, empresa y URL directa, para que las revises todas juntas al terminar y las completes tú mismo. Cada aplicación enviada con éxito queda además etiquetada con su `Tipo` (Easy Apply / Externa) y `Plataforma` (LinkedIn, Greenhouse, Lever, Workday...) para poder filtrarlas en el dashboard.
 
 ### Roadmap y contribuciones
 
