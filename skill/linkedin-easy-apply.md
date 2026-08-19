@@ -29,13 +29,17 @@ For each point: **if the answer is already in the user's prompt** (they wrote it
 4. **External applications** — include offers off LinkedIn too? Yes / No / Easy Apply only
 5. **Device** — only if point 4 is "Yes": which device is the user applying from today? (see device table in "External applications"). If point 4 is "No", skip this point.
 
+**⚠️ Hard rule about memory, no exceptions:** Claude's memory (saved preferences, past sessions, "N memories read") **never counts as an answer** to these 5 points. Even if memory holds Borja's/the user's usual search preferences, that memory can at most be *suggested* as a default inside the question message — never used to answer on their behalf or skip the question. Valid: "3) Any specific term? (default: the usual ones)" and then wait. Invalid: deciding "terms: the usual ones" yourself and moving on without the user having typed anything this turn.
+
+**⚠️ Hard rule about waiting, no exceptions:** after sending the question message, the turn ends there. Don't generate the answers, don't summarize "ok, let's go with X, Y, Z", and don't say "starting now" until the user has sent a new message in this conversation actually answering. No answer means no answer — full stop. No falling back to memory, no silent defaults, no inventing a reasonable answer and continuing.
+
 **⚠️ Hard technical rule, no exceptions: never use the button/multiple-choice question tool (`AskUserQuestion` / `ask_user_input_v0`) for Step 0.** That tool caps out at a few questions per call, paginates across several screens ("1 of 3", "2 of 3"...), and ends the turn as soon as it's called — in practice this has repeatedly resulted in points being left unasked. To avoid this failure mode entirely, ask the first 4 points **as a single normal, numbered text message**, e.g.:
 
 > "Before we start: 1) What modality? (remote/hybrid/onsite/both/all) 2) Which countries? 3) Any specific term besides the usual ones? 4) Include external applications too, off LinkedIn?"
 
 The user replies to all of it in one free-text message (e.g. "remote, NL+ES, no extra terms, yes include external"). Point 5 (device) is conditional on point 4, so it's a second plain-text question, in a separate turn, right after receiving a "yes" to point 4 — still part of this same initial checklist, before any search.
 
-**Don't move on to "Search configuration" or open any browser until all 5 points are resolved** (either answered by the user or already present in their prompt).
+**Don't move on to "Search configuration" or open any browser until the user has actually replied with an explicit message answering all 5 points** (or they were already in their original prompt).
 
 🇪🇸 **Regla dura: no se abre LinkedIn, no se hace ninguna búsqueda ni se llama a ninguna herramienta de navegador hasta tener respuesta a los 5 puntos de abajo.** El mensaje que activa esta skill ("aplica a trabajos", "busca ofertas"...) dispara la skill — no responde el checklist por ti.
 
@@ -46,6 +50,10 @@ Para cada punto: **si la respuesta ya está en el prompt del usuario** (lo escri
 3. **Términos de búsqueda** específicos, si los hay, además de los habituales
 4. **Aplicaciones externas** — ¿incluir también ofertas fuera de LinkedIn? Sí / No / Solo Easy Apply
 5. **Dispositivo** — solo si el punto 4 es "Sí": ¿desde qué dispositivo está aplicando el usuario hoy? (ver tabla de dispositivos en "Aplicaciones externas"). Si el punto 4 es "No", omitir este punto.
+
+**⚠️ Regla sobre memoria, sin excepciones:** la memoria de Claude (preferencias guardadas, sesiones anteriores, "se leyeron N memorias") **nunca cuenta como respuesta** a estos 5 puntos. Aunque haya memoria sobre las preferencias habituales del usuario, esa memoria puede como mucho *sugerirse* como valor por defecto dentro del mensaje de la pregunta — nunca usarse para responder en su nombre ni para saltarse la pregunta. Válido: "3) ¿Algún término específico? (por defecto, los habituales)" y esperar. Inválido: decidir "términos: los habituales" uno mismo y seguir sin que el usuario haya escrito nada en este turno.
+
+**⚠️ Regla sobre esperar, sin excepciones:** después de mandar el mensaje con las preguntas, el turno termina ahí. No generar las respuestas, no resumir "vale, vamos con X, Y, Z" y no decir "empiezo ahora" hasta que el usuario haya mandado un mensaje nuevo respondiendo de verdad. Sin respuesta no hay respuesta — punto. Nada de recurrir a memoria, nada de valores por defecto silenciosos, nada de inventar una respuesta razonable y continuar.
 
 **⚠️ Regla técnica sin excepciones: no usar la herramienta de preguntas con botones (`AskUserQuestion` / `ask_user_input_v0`) para el Paso 0, bajo ningún concepto.** Esa herramienta tiene un límite de preguntas por llamada, pagina en varias pantallas ("1 de 3", "2 de 3"...) y corta el turno en cuanto se llama — en la práctica esto ha dejado puntos sin preguntar repetidamente. Para evitarlo de raíz, preguntar los 4 primeros puntos **como un único mensaje de texto normal, numerado**, tipo:
 
@@ -254,3 +262,4 @@ El usuario responde todo junto en un solo mensaje de texto libre (ej. "remoto, N
 9. 🇬🇧 Step 0 never uses the button tool — the first 4 points go in a single numbered plain-text message; device (point 5) goes in a second text turn if needed. Never `AskUserQuestion`/`ask_user_input_v0` here — its question cap has repeatedly cut the turn short before the checklist was complete / 🇪🇸 El Paso 0 nunca usa la herramienta de botones — los 4 primeros puntos van en un solo mensaje de texto normal numerado; dispositivo (punto 5) va en un segundo turno de texto si aplica. Nunca `AskUserQuestion`/`ask_user_input_v0` aquí — su límite de preguntas ha cortado el turno antes de completar el checklist repetidamente
 9. 🇬🇧 External applications: fill as you go, never map the whole form before typing / 🇪🇸 Aplicaciones externas: rellenar sobre la marcha, nunca mapear el formulario entero antes de escribir
 10. 🇬🇧 External applications: `Tipo = "Externa"` in Notion is mandatory, never left as default Easy Apply / 🇪🇸 Aplicaciones externas: `Tipo = "Externa"` en Notion es obligatorio, nunca se deja como Easy Apply por defecto
+11. 🇬🇧 Memory never answers Step 0 on the user's behalf — ask anyway and wait for a real reply; never summarize "let's go with X" or say "starting now" without the user having actually answered this turn / 🇪🇸 La memoria nunca responde el Paso 0 en nombre del usuario — preguntar igualmente y esperar una respuesta real; nunca resumir "vamos con X" ni decir "empiezo ahora" sin que el usuario haya respondido en este turno
