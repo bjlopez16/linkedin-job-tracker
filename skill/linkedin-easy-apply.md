@@ -25,11 +25,15 @@ description: >
 - Any specific keyword besides the usual ones?
 - Include **external applications** too (offers that redirect off LinkedIn to the company site or an ATS)? Yes / No / Easy Apply only
 
+**If external applications are included, ask in this same initial question — not later in the session — which device you're applying from today** (see device table in "External applications"), so CV/photo paths are ready before the first form.
+
 🇪🇸 Antes de cualquier búsqueda, preguntar:
 - ¿Qué modalidad hoy? (Remoto / Híbrido / Ambas)
 - ¿Qué países/regiones?
 - ¿Alguna palabra clave específica además de las habituales?
 - ¿Incluir también **aplicaciones externas** (ofertas que llevan fuera de LinkedIn, a la web de la empresa o a un ATS)? Sí / No / Solo Easy Apply
+
+**Si se incluyen aplicaciones externas, preguntar en esta misma pregunta inicial — no más adelante en la sesión — desde qué dispositivo se está aplicando hoy** (ver tabla de dispositivos en "Aplicaciones externas"), para tener listas las rutas de CV/foto antes del primer formulario.
 
 ---
 
@@ -122,21 +126,28 @@ description: >
 
 🇬🇧 When an offer has no Easy Apply button but redirects to the company site or an ATS (Greenhouse, Lever, Workday, Ashby, etc.), and you opted in at Step 0, use the **Claude for Chrome** extension. **Requires the Claude Desktop app open and connected** on the device you're applying from — needed for local file uploads (CV, photo) even though the session itself runs from web/mobile chat.
 
+**Fill fast, as you go — don't map the whole form first.** Reading/screenshotting the entire form before typing anything is the main thing that slows external applications down. Instead: fill the fields visible in the current viewport one by one as you find them, scroll to the next section and repeat (don't re-analyze the whole page each time), batch actions where possible instead of screenshotting after every single field, and save full verification for right before submit — not field by field.
+
 - Everything is automatic (fill fields, upload CV/photo, write cover letter, answer screening questions, submit). **The session never stops mid-flow** — not even to ask for credentials.
 - Don't stop for optional logins ("continue as guest") — always choose guest/no account.
 - **Any blocker that can't be solved automatically** — mandatory account registration, unsolvable CAPTCHA, SMS/phone verification, unusual document uploads, a broken form — does **not** interrupt the session: log the offer to an internal `pending_manual` list (title, company, url, reason) and move on to the next eligible offer. This list becomes a dedicated section in the end-of-session summary document, so the user can review all of them at once and finish those applications themselves.
-- File paths for CV/photo depend on the device you're applying from — keep a small table like this and ask once per session if unclear:
+- File paths for CV/photo depend on the device you're applying from — keep a small table like this and ask once per session (at Step 0, see above) if unclear:
 
 | Device / Dispositivo | English CV | Spanish CV | Photo |
 |---|---|---|---|
 | `[DEVICE NAME]` | `[PATH TO ENGLISH CV]` | `[PATH TO SPANISH CV]` | `[PATH TO PHOTO]` |
 
+- **Notion tagging is mandatory, no exceptions:** every successfully submitted external application must be uploaded to Notion with `Tipo = "Externa"` (never left blank or defaulting to Easy Apply) and `Plataforma` set to the actual ATS/site name. Without this, the dashboard shows it as a regular Easy Apply application, which defeats the purpose of tracking it separately.
+
 🇪🇸 Cuando una oferta no tiene botón Easy Apply pero redirige a la web de la empresa o a un ATS (Greenhouse, Lever, Workday, Ashby, etc.), y se activó en el Paso 0, usar la extensión **Claude for Chrome**. **Requiere Claude Desktop abierto y conectado** en el dispositivo desde el que se aplica — necesario para subir archivos locales (CV, foto) aunque la sesión se lleve desde el chat web/móvil.
+
+**Rellenar rápido, sobre la marcha — sin mapear el formulario entero antes.** Leer/capturar el formulario completo antes de escribir nada es lo que más ralentiza las aplicaciones externas. En su lugar: rellenar los campos visibles en el viewport actual uno a uno según se encuentran, hacer scroll al siguiente tramo y repetir (sin volver a analizar la página entera cada vez), agrupar acciones cuando sea posible en vez de capturar pantalla tras cada campo individual, y dejar la verificación completa para justo antes de enviar — no campo a campo.
 
 - Todo es automático (rellenar campos, subir CV/foto, escribir carta de presentación, responder screening, enviar). **La sesión nunca se detiene a mitad de camino** — ni siquiera para pedir credenciales.
 - No detenerse por logins opcionales ("continuar como invitado") — elegir siempre invitado/sin cuenta.
 - **Cualquier bloqueo que no se pueda resolver automáticamente** — registro obligatorio de cuenta, CAPTCHA sin solución, verificación por SMS/teléfono, documentos poco habituales, un formulario roto — no interrumpe la sesión: registrar la oferta en una lista interna `pending_manual` (título, empresa, url, motivo) y pasar a la siguiente oferta elegible. Esta lista se convierte en un apartado propio del documento de resumen final, para que el usuario revise todas juntas al terminar y complete esas aplicaciones por su cuenta.
-- Las rutas de CV/foto dependen del dispositivo desde el que se aplique — mantener una tabla como la de arriba y preguntar una vez por sesión si no está claro.
+- Las rutas de CV/foto dependen del dispositivo desde el que se aplique — mantener una tabla como la de arriba y preguntar una vez por sesión (en el Paso 0, ver arriba) si no está claro.
+- **El etiquetado en Notion es obligatorio, sin excepción:** toda aplicación externa enviada con éxito debe subirse a Notion con `Tipo = "Externa"` (nunca en blanco ni con el valor por defecto de Easy Apply) y `Plataforma` con el nombre real del ATS/web. Sin esto, el dashboard la muestra como una Easy Apply normal, que es justo lo que se quiere evitar.
 
 ---
 
@@ -219,3 +230,6 @@ description: >
 5. 🇬🇧 Skip if work authorization form appears for US/UK / 🇪🇸 Saltar si aparece formulario de autorización de trabajo en US/UK
 6. 🇬🇧 External applications: the session never stops mid-flow — every blocker (mandatory registration, CAPTCHA, SMS, unusual documents, broken form) is logged to `pending_manual` and the session moves on / 🇪🇸 Aplicaciones externas: la sesión nunca se detiene a mitad de camino — cualquier bloqueo (registro obligatorio, CAPTCHA, SMS, documentos raros, formulario roto) se registra en `pending_manual` y la sesión continúa
 7. 🇬🇧 Claude Desktop must be open and connected for external applications (file uploads won't work otherwise) / 🇪🇸 Claude Desktop debe estar abierto y conectado para aplicaciones externas (si no, la subida de archivos no funcionará)
+8. 🇬🇧 Device question goes in Step 0, together with the initial questions — not later in the session / 🇪🇸 La pregunta del dispositivo va en el Paso 0, junto con las preguntas iniciales — no más adelante en la sesión
+9. 🇬🇧 External applications: fill as you go, never map the whole form before typing / 🇪🇸 Aplicaciones externas: rellenar sobre la marcha, nunca mapear el formulario entero antes de escribir
+10. 🇬🇧 External applications: `Tipo = "Externa"` in Notion is mandatory, never left as default Easy Apply / 🇪🇸 Aplicaciones externas: `Tipo = "Externa"` en Notion es obligatorio, nunca se deja como Easy Apply por defecto
