@@ -17,21 +17,35 @@ description: >
 
 # LinkedIn Easy Apply
 
-## STEP 0 — Session start / Inicio de sesión
+## STEP 0 — Session start: mandatory checklist before touching the browser / Inicio de sesión: checklist obligatorio antes de tocar el navegador
 
-🇬🇧 Before any search, ask:
-- What modality today? (Remote / Hybrid / Both)
-- Which countries/regions?
-- Any specific keyword besides the usual ones?
-- Include **external applications** too (offers that redirect off LinkedIn to the company site or an ATS)? Yes / No / Easy Apply only
+🇬🇧 **Hard rule: don't open LinkedIn, run any search, or call any browser tool until the 5 points below are answered.** The message that triggers this skill ("apply to jobs", "start session"...) activates the skill — it doesn't answer the checklist for you.
 
-**If external applications are included, ask in this same initial question — not later in the session — which device you're applying from today** (see device table in "External applications"), so CV/photo paths are ready before the first form.
+For each point: **if the answer is already in the user's prompt** (they wrote it explicitly, e.g. "search remote in Spain and include external ones from my home PC"), use that and don't ask again. **If it's not there, ask it** — never assume a default, never reuse an answer from a previous session's memory, never infer it from context.
 
-🇪🇸 Antes de cualquier búsqueda, preguntar:
-- ¿Qué modalidad hoy? (Remoto / Híbrido / Ambas)
-- ¿Qué países/regiones?
-- ¿Alguna palabra clave específica además de las habituales?
-- ¿Incluir también **aplicaciones externas** (ofertas que llevan fuera de LinkedIn, a la web de la empresa o a un ATS)? Sí / No / Solo Easy Apply
+1. **Modality** — Remote / Hybrid / Onsite / Remote+Hybrid / All
+2. **Countries/regions**
+3. **Specific search terms**, if any, besides the usual ones
+4. **External applications** — include offers off LinkedIn too? Yes / No / Easy Apply only
+5. **Device** — only if point 4 is "Yes": which device is the user applying from today? (see device table in "External applications"). If point 4 is "No", skip this point.
+
+Use a multiple-choice tool for points 1 and 4. Points 2 and 3 can be a normal conversational question if they don't fit closed options. Point 5 depends on the answer to point 4, so it can be a follow-up question right after receiving that answer — but it's still part of this same initial checklist, before any search, never later in the session.
+
+**Don't move on to "Search configuration" or open any browser until all 5 points are resolved** (either answered by the user or already present in their prompt).
+
+🇪🇸 **Regla dura: no se abre LinkedIn, no se hace ninguna búsqueda ni se llama a ninguna herramienta de navegador hasta tener respuesta a los 5 puntos de abajo.** El mensaje que activa esta skill ("aplica a trabajos", "busca ofertas"...) dispara la skill — no responde el checklist por ti.
+
+Para cada punto: **si la respuesta ya está en el prompt del usuario** (lo escribió explícitamente, ej. "busca remoto en España e incluye externas desde mi PC de casa"), usar esa respuesta y no volver a preguntarla. **Si no está, preguntarla** — nunca asumir un valor por defecto, nunca reusar la respuesta de una sesión anterior de memoria, nunca inferirla del contexto.
+
+1. **Modalidad** — Remoto / Híbrido / Presencial / Remoto+Híbrido / Todos
+2. **Regiones/países**
+3. **Términos de búsqueda** específicos, si los hay, además de los habituales
+4. **Aplicaciones externas** — ¿incluir también ofertas fuera de LinkedIn? Sí / No / Solo Easy Apply
+5. **Dispositivo** — solo si el punto 4 es "Sí": ¿desde qué dispositivo está aplicando el usuario hoy? (ver tabla de dispositivos en "Aplicaciones externas"). Si el punto 4 es "No", omitir este punto.
+
+Usar una herramienta de opción múltiple para los puntos 1 y 4. Los puntos 2 y 3 pueden ir como pregunta conversacional normal si no encajan en opciones cerradas. El punto 5 depende de la respuesta al 4, así que puede ser una pregunta de seguimiento justo después de recibirla — pero sigue siendo parte de este mismo checklist inicial, antes de cualquier búsqueda, nunca más adelante en la sesión.
+
+**No pasar a "Configuración de búsqueda" ni abrir ningún navegador hasta que los 5 puntos estén resueltos** (respondidos por el usuario o ya presentes en su prompt).
 
 **Si se incluyen aplicaciones externas, preguntar en esta misma pregunta inicial — no más adelante en la sesión — desde qué dispositivo se está aplicando hoy** (ver tabla de dispositivos en "Aplicaciones externas"), para tener listas las rutas de CV/foto antes del primer formulario.
 
@@ -230,6 +244,6 @@ description: >
 5. 🇬🇧 Skip if work authorization form appears for US/UK / 🇪🇸 Saltar si aparece formulario de autorización de trabajo en US/UK
 6. 🇬🇧 External applications: the session never stops mid-flow — every blocker (mandatory registration, CAPTCHA, SMS, unusual documents, broken form) is logged to `pending_manual` and the session moves on / 🇪🇸 Aplicaciones externas: la sesión nunca se detiene a mitad de camino — cualquier bloqueo (registro obligatorio, CAPTCHA, SMS, documentos raros, formulario roto) se registra en `pending_manual` y la sesión continúa
 7. 🇬🇧 Claude Desktop must be open and connected for external applications (file uploads won't work otherwise) / 🇪🇸 Claude Desktop debe estar abierto y conectado para aplicaciones externas (si no, la subida de archivos no funcionará)
-8. 🇬🇧 Device question goes in Step 0, together with the initial questions — not later in the session / 🇪🇸 La pregunta del dispositivo va en el Paso 0, junto con las preguntas iniciales — no más adelante en la sesión
+8. 🇬🇧 Step 0 is a hard gate, not a suggestion — no browser tool runs until all 5 points are resolved; if a point is already in the user's prompt don't re-ask it, but if it's missing always ask — never assume it or reuse it from a previous session's memory / 🇪🇸 El Paso 0 es una puerta de bloqueo, no una sugerencia — no se llama a ninguna herramienta de navegador hasta tener los 5 puntos resueltos; si un punto ya está en el prompt del usuario no se repregunta, pero si falta siempre se pregunta — nunca se asume ni se recicla de una sesión anterior
 9. 🇬🇧 External applications: fill as you go, never map the whole form before typing / 🇪🇸 Aplicaciones externas: rellenar sobre la marcha, nunca mapear el formulario entero antes de escribir
 10. 🇬🇧 External applications: `Tipo = "Externa"` in Notion is mandatory, never left as default Easy Apply / 🇪🇸 Aplicaciones externas: `Tipo = "Externa"` en Notion es obligatorio, nunca se deja como Easy Apply por defecto
