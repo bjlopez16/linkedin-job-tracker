@@ -87,7 +87,7 @@ This project is actively maintained and will keep improving. Planned areas:
 
 - Smarter filtering and scoring of offers
 - Follow-up reminders and recruiter tracking automation
-- Broader ATS-specific handling (Workday, iCIMS, Ashby edge cases)
+- Deeper per-ATS refinement for known quirks (e.g. Workday's multi-page flows, Greenhouse custom questions) — basic support for these platforms shipped in v2, this is about handling their edge cases better
 
 **Feedback and improvement proposals are welcome.** If you've used this and have ideas, found a bug, or want to suggest a feature:
 
@@ -165,7 +165,7 @@ Este proyecto se mantiene activamente y seguirá mejorando. Áreas previstas:
 
 - Filtrado y puntuación inteligente de ofertas
 - Recordatorios de seguimiento y automatización del contacto con reclutadores
-- Manejo específico más amplio por ATS (casos particulares de Workday, iCIMS, Ashby)
+- Refinamiento por ATS para casos particulares (flujos multi-página de Workday, preguntas personalizadas de Greenhouse...) — el soporte base para estas plataformas ya se implementó en v2, esto es sobre pulir sus casos límite
 
 **Se aceptan propuestas de mejora y feedback.** Si has usado esta herramienta y tienes ideas, has encontrado un error o quieres sugerir una funcionalidad:
 
