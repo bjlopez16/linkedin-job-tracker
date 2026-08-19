@@ -29,7 +29,11 @@ For each point: **if the answer is already in the user's prompt** (they wrote it
 4. **External applications** — include offers off LinkedIn too? Yes / No / Easy Apply only
 5. **Device** — only if point 4 is "Yes": which device is the user applying from today? (see device table in "External applications"). If point 4 is "No", skip this point.
 
-Use a multiple-choice tool for points 1 and 4. Points 2 and 3 can be a normal conversational question if they don't fit closed options. Point 5 depends on the answer to point 4, so it can be a follow-up question right after receiving that answer — but it's still part of this same initial checklist, before any search, never later in the session.
+**⚠️ Important technical note:** button/multiple-choice question tools (`AskUserQuestion` / `ask_user_input_v0`) cap out at **3 questions per call**, and the turn ends as soon as the tool is called — nothing else can be asked in that same turn afterward. This changes how the 5 points must be split:
+
+- **In the same tool call, use at most 2 of its 3 slots** for points 1 and 4 (Modality, External apps yes/no) — always leave at least one slot unused, never fill all 3.
+- Points 2 (countries) and 3 (terms) go as **normal conversational text**, written in the same message right before calling the button tool (the prose question + the tool call happen in the same turn, and the user answers both at once in their next message).
+- Point 5 (device) is conditional on point 4, so **it can never go in the same call** — ask it in a second turn, right after receiving the answer to point 4, if it was "Yes". It's still part of this same initial checklist (before any search), just split across two exchanges instead of one.
 
 **Don't move on to "Search configuration" or open any browser until all 5 points are resolved** (either answered by the user or already present in their prompt).
 
@@ -43,11 +47,13 @@ Para cada punto: **si la respuesta ya está en el prompt del usuario** (lo escri
 4. **Aplicaciones externas** — ¿incluir también ofertas fuera de LinkedIn? Sí / No / Solo Easy Apply
 5. **Dispositivo** — solo si el punto 4 es "Sí": ¿desde qué dispositivo está aplicando el usuario hoy? (ver tabla de dispositivos en "Aplicaciones externas"). Si el punto 4 es "No", omitir este punto.
 
-Usar una herramienta de opción múltiple para los puntos 1 y 4. Los puntos 2 y 3 pueden ir como pregunta conversacional normal si no encajan en opciones cerradas. El punto 5 depende de la respuesta al 4, así que puede ser una pregunta de seguimiento justo después de recibirla — pero sigue siendo parte de este mismo checklist inicial, antes de cualquier búsqueda, nunca más adelante en la sesión.
+**⚠️ Aviso técnico importante:** las herramientas de preguntas con botones (`AskUserQuestion` / `ask_user_input_v0`) tienen un **máximo de 3 preguntas por llamada**, y el turno termina en cuanto se llama a la herramienta — no se puede preguntar nada más en ese mismo turno después. Esto cambia cómo hay que repartir los 5 puntos:
+
+- **En la misma llamada, usar como máximo 2 de los 3 slots** para los puntos 1 y 4 (Modalidad, Externas sí/no) — dejar siempre al menos un slot libre, nunca llenar los 3.
+- Los puntos 2 (países) y 3 (términos) van como **texto normal de conversación**, escritos en el mismo mensaje justo antes de llamar a la herramienta de botones (el texto conversacional y la llamada van en el mismo turno, y el usuario responde a ambos a la vez).
+- El punto 5 (dispositivo) es condicional al punto 4, así que **nunca puede ir en la misma llamada** — se pregunta en un segundo turno, justo después de recibir la respuesta al punto 4, si fue "Sí". Sigue siendo parte de este mismo checklist inicial (antes de cualquier búsqueda), solo que en dos intercambios en vez de uno.
 
 **No pasar a "Configuración de búsqueda" ni abrir ningún navegador hasta que los 5 puntos estén resueltos** (respondidos por el usuario o ya presentes en su prompt).
-
-**Si se incluyen aplicaciones externas, preguntar en esta misma pregunta inicial — no más adelante en la sesión — desde qué dispositivo se está aplicando hoy** (ver tabla de dispositivos en "Aplicaciones externas"), para tener listas las rutas de CV/foto antes del primer formulario.
 
 ---
 
@@ -245,5 +251,6 @@ Usar una herramienta de opción múltiple para los puntos 1 y 4. Los puntos 2 y 
 6. 🇬🇧 External applications: the session never stops mid-flow — every blocker (mandatory registration, CAPTCHA, SMS, unusual documents, broken form) is logged to `pending_manual` and the session moves on / 🇪🇸 Aplicaciones externas: la sesión nunca se detiene a mitad de camino — cualquier bloqueo (registro obligatorio, CAPTCHA, SMS, documentos raros, formulario roto) se registra en `pending_manual` y la sesión continúa
 7. 🇬🇧 Claude Desktop must be open and connected for external applications (file uploads won't work otherwise) / 🇪🇸 Claude Desktop debe estar abierto y conectado para aplicaciones externas (si no, la subida de archivos no funcionará)
 8. 🇬🇧 Step 0 is a hard gate, not a suggestion — no browser tool runs until all 5 points are resolved; if a point is already in the user's prompt don't re-ask it, but if it's missing always ask — never assume it or reuse it from a previous session's memory / 🇪🇸 El Paso 0 es una puerta de bloqueo, no una sugerencia — no se llama a ninguna herramienta de navegador hasta tener los 5 puntos resueltos; si un punto ya está en el prompt del usuario no se repregunta, pero si falta siempre se pregunta — nunca se asume ni se recicla de una sesión anterior
+9. 🇬🇧 Max 2 of the 3 slots on the Step 0 button tool — never fill all 3, or the turn ends before everything gets asked; countries/terms go as plain text, device goes in a second turn if needed / 🇪🇸 Máximo 2 de los 3 slots de la herramienta de botones en el Paso 0 — nunca llenar los 3, o el turno termina antes de preguntar todo; países/términos van como texto normal, dispositivo va en un segundo turno si aplica
 9. 🇬🇧 External applications: fill as you go, never map the whole form before typing / 🇪🇸 Aplicaciones externas: rellenar sobre la marcha, nunca mapear el formulario entero antes de escribir
 10. 🇬🇧 External applications: `Tipo = "Externa"` in Notion is mandatory, never left as default Easy Apply / 🇪🇸 Aplicaciones externas: `Tipo = "Externa"` en Notion es obligatorio, nunca se deja como Easy Apply por defecto
