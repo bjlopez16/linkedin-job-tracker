@@ -33,31 +33,37 @@ For each point: **if the answer is already in the user's prompt** (they wrote it
 
 **⚠️ Hard rule about waiting, no exceptions:** after sending the question message, the turn ends there. Don't generate the answers, don't summarize "ok, let's go with X, Y, Z", and don't say "starting now" until the user has sent a new message in this conversation actually answering. No answer means no answer — full stop. No falling back to memory, no silent defaults, no inventing a reasonable answer and continuing.
 
-**⚠️ Hard technical rule, no exceptions: never use the button/multiple-choice question tool (`AskUserQuestion` / `ask_user_input_v0`) for Step 0.** That tool caps out at a few questions per call, paginates across several screens ("1 of 3", "2 of 3"...), and ends the turn as soon as it's called — in practice this has repeatedly resulted in points being left unasked. To avoid this failure mode entirely, ask the first 4 points **as a single normal, numbered text message**, e.g.:
+**⚠️ Exactly how to split the 5 points if the button question tool (`AskUserQuestion` / `ask_user_input_v0`) gets used:**
 
-> "Before we start: 1) What modality? (remote/hybrid/onsite/both/all) 2) Which countries? 3) Any specific term besides the usual ones? 4) Include external applications too, off LinkedIn?"
+This tool tends to get used regardless of instructions to avoid it — instead of continuing to try to ban it outright, this defines precisely what goes in it when it's used, so no point is ever left unasked:
 
-The user replies to all of it in one free-text message (e.g. "remote, NL+ES, no extra terms, yes include external"). Point 5 (device) is conditional on point 4, so it's a second plain-text question, in a separate turn, right after receiving a "yes" to point 4 — still part of this same initial checklist, before any search.
+- **First call — exactly these 3 questions, no more, no less, in this order:**
+  1. Modality (point 1)
+  2. Countries/regions (point 2) — options: Netherlands / Spain / NL+ES / UK / Global / combination (use the tool's own "Something else" option if the user wants a different combination)
+  3. External applications (point 4) — Yes / No
+- **Search terms (point 3)** go as plain text in the conversational message accompanying that same call (before the buttons), never as one of the tool's 3 questions — so it doesn't compete for a slot.
+- **Mandatory, no exceptions: as soon as the answers to that first call come back, if point 4 was "Yes", make a SECOND call** (same tool, or a plain text question) asking only point 5 (device), before touching the browser. This second call is not optional and can't be skipped — it's how point 5 actually gets asked, since it depends on point 4's answer and can't fit in the first call.
+
+If instead everything is asked as plain text (no tool), the same rules apply: the first 4 points in one message, device in a second message if needed.
 
 **Don't move on to "Search configuration" or open any browser until the user has actually replied with an explicit message answering all 5 points** (or they were already in their original prompt).
 
-🇪🇸 **Regla dura: no se abre LinkedIn, no se hace ninguna búsqueda ni se llama a ninguna herramienta de navegador hasta tener respuesta a los 5 puntos de abajo.** El mensaje que activa esta skill ("aplica a trabajos", "busca ofertas"...) dispara la skill — no responde el checklist por ti.
+🇪🇸 **Cómo repartir exactamente los 5 puntos si se usa la herramienta de preguntas con botones (`AskUserQuestion` / `ask_user_input_v0`):**
 
-Para cada punto: **si la respuesta ya está en el prompt del usuario** (lo escribió explícitamente, ej. "busca remoto en España e incluye externas desde mi PC de casa"), usar esa respuesta y no volver a preguntarla. **Si no está, preguntarla** — nunca asumir un valor por defecto, nunca reusar la respuesta de una sesión anterior de memoria, nunca inferirla del contexto.
+Esa herramienta tiende a usarse igualmente aunque se pida evitarla — en vez de seguir intentando prohibirla, esto define con precisión qué va dentro cuando se use, para que nunca se queden puntos fuera:
 
-1. **Modalidad** — Remoto / Híbrido / Presencial / Remoto+Híbrido / Todos
-2. **Regiones/países**
-3. **Términos de búsqueda** específicos, si los hay, además de los habituales
-4. **Aplicaciones externas** — ¿incluir también ofertas fuera de LinkedIn? Sí / No / Solo Easy Apply
-5. **Dispositivo** — solo si el punto 4 es "Sí": ¿desde qué dispositivo está aplicando el usuario hoy? (ver tabla de dispositivos en "Aplicaciones externas"). Si el punto 4 es "No", omitir este punto.
+- **Primera llamada — exactamente estas 3 preguntas, ni una más ni una menos, en este orden:**
+  1. Modalidad (punto 1)
+  2. Regiones/países (punto 2) — opciones: Países Bajos / España / NL+ES / Reino Unido / Global / combinación (usar el "Algo más" de la propia herramienta si el usuario quiere otra combinación)
+  3. Aplicaciones externas (punto 4) — Sí / No
+- **Términos de búsqueda (punto 3)** van como texto normal en el mensaje conversacional que acompaña a esa misma llamada (antes de los botones), nunca como una de las 3 preguntas de la herramienta — así no compite por hueco.
+- **Obligatorio, sin excepción: en cuanto lleguen las respuestas de esa primera llamada, si el punto 4 fue "Sí", hacer una SEGUNDA llamada** (a la misma herramienta, o como pregunta de texto normal) preguntando solo el punto 5 (dispositivo), antes de tocar el navegador. Esta segunda llamada no es opcional ni se puede saltar — es la forma en la que el punto 5 sí se pregunta, dado que depende de la respuesta al punto 4 y no puede ir en la primera llamada.
 
-**⚠️ Regla sobre memoria, sin excepciones:** la memoria de Claude (preferencias guardadas, sesiones anteriores, "se leyeron N memorias") **nunca cuenta como respuesta** a estos 5 puntos. Aunque haya memoria sobre las preferencias habituales del usuario, esa memoria puede como mucho *sugerirse* como valor por defecto dentro del mensaje de la pregunta — nunca usarse para responder en su nombre ni para saltarse la pregunta. Válido: "3) ¿Algún término específico? (por defecto, los habituales)" y esperar. Inválido: decidir "términos: los habituales" uno mismo y seguir sin que el usuario haya escrito nada en este turno.
+Si en cambio se pregunta todo como texto normal (sin la herramienta), aplican las mismas reglas: los 4 primeros puntos en un solo mensaje, dispositivo en un segundo mensaje si aplica.
 
-**⚠️ Regla sobre esperar, sin excepciones:** después de mandar el mensaje con las preguntas, el turno termina ahí. No generar las respuestas, no resumir "vale, vamos con X, Y, Z" y no decir "empiezo ahora" hasta que el usuario haya mandado un mensaje nuevo respondiendo de verdad. Sin respuesta no hay respuesta — punto. Nada de recurrir a memoria, nada de valores por defecto silenciosos, nada de inventar una respuesta razonable y continuar.
+**No pasar a "Configuración de búsqueda" ni abrir ningún navegador hasta que el usuario haya respondido explícitamente a los 5 puntos** (o ya venían en su prompt original).
 
-**⚠️ Regla técnica sin excepciones: no usar la herramienta de preguntas con botones (`AskUserQuestion` / `ask_user_input_v0`) para el Paso 0, bajo ningún concepto.** Esa herramienta tiene un límite de preguntas por llamada, pagina en varias pantallas ("1 de 3", "2 de 3"...) y corta el turno en cuanto se llama — en la práctica esto ha dejado puntos sin preguntar repetidamente. Para evitarlo de raíz, preguntar los 4 primeros puntos **como un único mensaje de texto normal, numerado**, tipo:
-
-> "Antes de empezar, dime: 1) ¿Qué modalidad? (remoto/híbrido/presencial/ambos/todos) 2) ¿Qué países? 3) ¿Algún término específico además de los habituales? 4) ¿Incluyo también aplicaciones externas fuera de LinkedIn?"
+---
 
 El usuario responde todo junto en un solo mensaje de texto libre (ej. "remoto, NL+ES, sin términos extra, sí incluye externas"). El punto 5 (dispositivo) es condicional al punto 4, así que es una segunda pregunta de texto normal, en un turno aparte, justo después de recibir un "sí" al punto 4 — sigue siendo parte de este mismo checklist inicial, antes de cualquier búsqueda.
 
@@ -259,7 +265,7 @@ El usuario responde todo junto en un solo mensaje de texto libre (ej. "remoto, N
 6. 🇬🇧 External applications: the session never stops mid-flow — every blocker (mandatory registration, CAPTCHA, SMS, unusual documents, broken form) is logged to `pending_manual` and the session moves on / 🇪🇸 Aplicaciones externas: la sesión nunca se detiene a mitad de camino — cualquier bloqueo (registro obligatorio, CAPTCHA, SMS, documentos raros, formulario roto) se registra en `pending_manual` y la sesión continúa
 7. 🇬🇧 Claude Desktop must be open and connected for external applications (file uploads won't work otherwise) / 🇪🇸 Claude Desktop debe estar abierto y conectado para aplicaciones externas (si no, la subida de archivos no funcionará)
 8. 🇬🇧 Step 0 is a hard gate, not a suggestion — no browser tool runs until all 5 points are resolved; if a point is already in the user's prompt don't re-ask it, but if it's missing always ask — never assume it or reuse it from a previous session's memory / 🇪🇸 El Paso 0 es una puerta de bloqueo, no una sugerencia — no se llama a ninguna herramienta de navegador hasta tener los 5 puntos resueltos; si un punto ya está en el prompt del usuario no se repregunta, pero si falta siempre se pregunta — nunca se asume ni se recicla de una sesión anterior
-9. 🇬🇧 Step 0 never uses the button tool — the first 4 points go in a single numbered plain-text message; device (point 5) goes in a second text turn if needed. Never `AskUserQuestion`/`ask_user_input_v0` here — its question cap has repeatedly cut the turn short before the checklist was complete / 🇪🇸 El Paso 0 nunca usa la herramienta de botones — los 4 primeros puntos van en un solo mensaje de texto normal numerado; dispositivo (punto 5) va en un segundo turno de texto si aplica. Nunca `AskUserQuestion`/`ask_user_input_v0` aquí — su límite de preguntas ha cortado el turno antes de completar el checklist repetidamente
+9. 🇬🇧 Step 0 with the button tool: exactly 3 fixed questions (modality, countries, external apps), terms as plain text, and a MANDATORY second call for device if external=Yes — never leave point 5 unasked just because it didn't fit the first call / 🇪🇸 Paso 0 con herramienta de botones: exactamente 3 preguntas fijas (modalidad, países, externas), términos como texto, y SEGUNDA llamada obligatoria para dispositivo si externas=Sí — nunca dejar el punto 5 sin preguntar solo porque no cupo en la primera llamada
 9. 🇬🇧 External applications: fill as you go, never map the whole form before typing / 🇪🇸 Aplicaciones externas: rellenar sobre la marcha, nunca mapear el formulario entero antes de escribir
 10. 🇬🇧 External applications: `Tipo = "Externa"` in Notion is mandatory, never left as default Easy Apply / 🇪🇸 Aplicaciones externas: `Tipo = "Externa"` en Notion es obligatorio, nunca se deja como Easy Apply por defecto
 11. 🇬🇧 Memory never answers Step 0 on the user's behalf — ask anyway and wait for a real reply; never summarize "let's go with X" or say "starting now" without the user having actually answered this turn / 🇪🇸 La memoria nunca responde el Paso 0 en nombre del usuario — preguntar igualmente y esperar una respuesta real; nunca resumir "vamos con X" ni decir "empiezo ahora" sin que el usuario haya respondido en este turno
