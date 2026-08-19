@@ -32,6 +32,11 @@ const STATUSES = {
 };
 const STATUS_LIST = Object.keys(STATUSES);
 const FLAGS = { NL:'🇳🇱', ES:'🇪🇸', UK:'🇬🇧', US:'🇺🇸', Global:'🌍' };
+const TIPOS = {
+  'Easy Apply': { color:'#0369A1', bg:'#E0F0FA', border:'#93C5E8' },
+  'Externa':    { color:'#92400E', bg:'#FEF3DC', border:'#F5CC80' },
+};
+const TIPO_LIST = Object.keys(TIPOS);
 const KEY   = 'bjl_job_tracker_v2';
 const FONT  = "'Inter',-apple-system,BlinkMacSystemFont,sans-serif";
 
@@ -64,6 +69,19 @@ const StatusBadge = ({status}) => {
       fontSize:10.5, fontWeight:700, whiteSpace:'nowrap',
       letterSpacing:'0.03em', textTransform:'uppercase',
     }}>{status}</span>
+  );
+};
+
+const TipoBadge = ({tipo,plataforma}) => {
+  const cfg = TIPOS[tipo]||TIPOS['Easy Apply'];
+  return (
+    <span title={plataforma||tipo} style={{
+      display:'inline-flex', alignItems:'center', gap:4,
+      padding:'2px 7px', borderRadius:10,
+      background:cfg.bg, color:cfg.color,
+      border:`1px solid ${cfg.border}`,
+      fontSize:10.5, fontWeight:600, whiteSpace:'nowrap',
+    }}>{tipo==='Externa'?'🔗':'⚡'} {plataforma||tipo}</span>
   );
 };
 
@@ -211,6 +229,7 @@ const AppCard = ({app,selected,onClick}) => (
     <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
       <div style={{display:'flex',gap:10,alignItems:'center'}}>
         <span style={{fontSize:11.5,color:T.muted}}>{FLAGS[app.pais]||'🌍'} {app.pais}</span>
+        {app.tipo==='Externa'&&<TipoBadge tipo={app.tipo} plataforma={app.plataforma}/>}
         {app.rating>0&&<span style={{color:T.amber,fontSize:11.5,letterSpacing:-1}}>{'★'.repeat(app.rating)}</span>}
         {app.notion_id&&<span style={{fontSize:9.5,color:T.teal,background:T.tealL,padding:'1px 6px',borderRadius:4,fontWeight:700,letterSpacing:'0.04em'}}>N</span>}
         {app.contactoReclutador&&app.contactoReclutador.length>2&&app.contactoReclutador!=='No visible'&&(
@@ -247,8 +266,11 @@ const DetailPanel = ({app,onUpdate,onDelete,onClose}) => {
       <div style={{...sec,position:'sticky',top:0,background:T.surf2,zIndex:1,display:'flex',justifyContent:'space-between',alignItems:'flex-start',borderBottom:`2px solid ${T.teal}30`}}>
         <div style={{flex:1,minWidth:0}}>
           <div style={{color:T.text,fontWeight:700,fontSize:14.5,letterSpacing:'-0.02em',lineHeight:1.3,marginBottom:4}}>{local.titulo}</div>
-          <div style={{color:T.muted,fontSize:12,marginBottom:local.url?6:0}}>{local.empresa} · {FLAGS[local.pais]||'🌍'} {local.pais}</div>
-          {local.url&&<a href={local.url} target="_blank" rel="noreferrer" style={{color:T.teal,fontSize:11.5,textDecoration:'none',fontWeight:500}}>Ver en LinkedIn ↗</a>}
+          <div style={{color:T.muted,fontSize:12,marginBottom:6,display:'flex',alignItems:'center',gap:6,flexWrap:'wrap'}}>
+            <span>{local.empresa} · {FLAGS[local.pais]||'🌍'} {local.pais}</span>
+            <TipoBadge tipo={local.tipo||'Easy Apply'} plataforma={local.plataforma}/>
+          </div>
+          {local.url&&<a href={local.url} target="_blank" rel="noreferrer" style={{color:T.teal,fontSize:11.5,textDecoration:'none',fontWeight:500}}>Ver oferta ↗</a>}
           {local.notion_id&&<div style={{marginTop:3,fontSize:10,color:T.teal,fontWeight:600,letterSpacing:'0.04em'}}>✓ Synced desde Notion</div>}
         </div>
         <button onClick={onClose} style={{background:'none',border:'none',color:T.dim,cursor:'pointer',fontSize:22,lineHeight:1,padding:'0 0 0 10px',flexShrink:0}}>×</button>
@@ -392,7 +414,7 @@ const NotionExportModal = ({apps,onClose}) => {
 
 const ImportModal = ({onClose,onImport}) => {
   const [text,setText]=useState('');const [err,setErr]=useState('');
-  const handle=()=>{setErr('');try{const raw=JSON.parse(text.trim());const list=Array.isArray(raw)?raw:(raw.aplicaciones||[]);if(!list.length)throw new Error('empty');const sid=raw.sesion_id||raw.fecha||new Date().toISOString().slice(0,10);const now=new Date().toISOString();const apps=list.map(a=>({id:genId(),titulo:a.titulo||'',empresa:a.empresa||'',ubicacion:a.ubicacion||'',pais:detectCountry(a.ubicacion||''),tipo:a.tipo||'Jornada completa',publicado:a.publicado||'',aplicadoEn:a.aplicadoEn||now,sesionId:sid,contactoReclutador:a.contacto_reclutador||a.contactoReclutador||'',url:a.url||'',estado:a.estado||'Enviada',notas:'',rating:0,resumenPuesto:a.resumen_puesto||a.resumenPuesto||'',requisitosClave:a.requisitos_clave||a.requisitosClave||[],beneficios:a.beneficios||'',historial:[{fecha:now,cambio:`Importada — sesión ${sid}`,tipo:'import'}]}));onImport(apps);}catch{setErr('JSON no reconocido.');}};
+  const handle=()=>{setErr('');try{const raw=JSON.parse(text.trim());const list=Array.isArray(raw)?raw:(raw.aplicaciones||[]);if(!list.length)throw new Error('empty');const sid=raw.sesion_id||raw.fecha||new Date().toISOString().slice(0,10);const now=new Date().toISOString();const apps=list.map(a=>({id:genId(),titulo:a.titulo||'',empresa:a.empresa||'',ubicacion:a.ubicacion||'',pais:detectCountry(a.ubicacion||''),tipoJornada:a.tipo||'Jornada completa',tipo:a.tipo_aplicacion||'Easy Apply',plataforma:a.plataforma||'',publicado:a.publicado||'',aplicadoEn:a.aplicadoEn||now,sesionId:sid,contactoReclutador:a.contacto_reclutador||a.contactoReclutador||'',url:a.url||'',estado:a.estado||'Enviada',notas:'',rating:0,resumenPuesto:a.resumen_puesto||a.resumenPuesto||'',requisitosClave:a.requisitos_clave||a.requisitosClave||[],beneficios:a.beneficios||'',historial:[{fecha:now,cambio:`Importada — sesión ${sid}`,tipo:'import'}]}));onImport(apps);}catch{setErr('JSON no reconocido.');}};
   return (
     <Modal onClose={onClose} title="Importar sesión" subtitle="JSON de respaldo de linkedin-easy-apply">
       <textarea autoFocus value={text} onChange={e=>setText(e.target.value)} placeholder={'{ "sesion_id": "2026-08-13", "aplicaciones": [...] }'} style={{width:'100%',height:150,background:T.bg,border:`1px solid ${err?'#F5BCBC':T.border2}`,borderRadius:8,color:T.text,fontFamily:'monospace',fontSize:11.5,padding:12,resize:'vertical',boxSizing:'border-box',lineHeight:1.5,outline:'none'}}/>
@@ -403,7 +425,7 @@ const ImportModal = ({onClose,onImport}) => {
 };
 
 const AddModal = ({onClose,onAdd}) => {
-  const [f,setF]=useState({titulo:'',empresa:'',pais:'NL',url:'',estado:'Enviada',contactoReclutador:''});
+  const [f,setF]=useState({titulo:'',empresa:'',pais:'NL',url:'',estado:'Enviada',contactoReclutador:'',tipo:'Easy Apply',plataforma:''});
   const set=(k,v)=>setF(p=>({...p,[k]:v}));const valid=f.titulo.trim()&&f.empresa.trim();
   const sel={width:'100%',background:'#FFFFFF',border:`1px solid ${T.border2}`,borderRadius:6,color:T.text,fontSize:13,padding:'9px 12px',fontFamily:FONT,boxSizing:'border-box',outline:'none'};
   return (
@@ -417,7 +439,11 @@ const AddModal = ({onClose,onAdd}) => {
             <div key={k} style={{flex:1}}><div style={{fontSize:10.5,color:T.muted,marginBottom:5,textTransform:'uppercase',letterSpacing:'0.06em',fontWeight:600}}>{l}</div><select value={f[k]} onChange={e=>set(k,e.target.value)} style={sel}>{opts.map(o=><option key={o.v} value={o.v}>{o.l}</option>)}</select></div>
           ))}
         </div>
-        <div><div style={{fontSize:10.5,color:T.muted,marginBottom:5,textTransform:'uppercase',letterSpacing:'0.06em',fontWeight:600}}>URL de LinkedIn</div><Field value={f.url} onChange={v=>set('url',v)} placeholder="https://linkedin.com/jobs/..."/></div>
+        <div style={{display:'flex',gap:10}}>
+          <div style={{flex:1}}><div style={{fontSize:10.5,color:T.muted,marginBottom:5,textTransform:'uppercase',letterSpacing:'0.06em',fontWeight:600}}>Tipo</div><select value={f.tipo} onChange={e=>set('tipo',e.target.value)} style={sel}>{TIPO_LIST.map(t=><option key={t} value={t}>{t}</option>)}</select></div>
+          <div style={{flex:1}}><div style={{fontSize:10.5,color:T.muted,marginBottom:5,textTransform:'uppercase',letterSpacing:'0.06em',fontWeight:600}}>Plataforma</div><Field value={f.plataforma} onChange={v=>set('plataforma',v)} placeholder="LinkedIn, Greenhouse..."/></div>
+        </div>
+        <div><div style={{fontSize:10.5,color:T.muted,marginBottom:5,textTransform:'uppercase',letterSpacing:'0.06em',fontWeight:600}}>URL de la oferta</div><Field value={f.url} onChange={v=>set('url',v)} placeholder="https://..."/></div>
         <div><div style={{fontSize:10.5,color:T.muted,marginBottom:5,textTransform:'uppercase',letterSpacing:'0.06em',fontWeight:600}}>Reclutador (opcional)</div><Field value={f.contactoReclutador} onChange={v=>set('contactoReclutador',v)} placeholder="Nombre del reclutador..."/></div>
       </div>
       <div style={{display:'flex',gap:8,marginTop:20,justifyContent:'flex-end'}}><Btn onClick={onClose}>Cancelar</Btn><Btn variant="primary" disabled={!valid} onClick={()=>{if(!valid)return;const now=new Date().toISOString();onAdd({...f,id:genId(),rating:0,sesionId:'manual',aplicadoEn:now,resumenPuesto:'',requisitosClave:[],beneficios:'',notas:'',ubicacion:'',historial:[{fecha:now,cambio:'Añadida manualmente',tipo:'manual'}]});}}> Añadir</Btn></div>
@@ -431,7 +457,7 @@ export default function App() {
   const [apps,setApps]=useState(()=>store.load());
   const [selected,setSelected]=useState(null);
   const [modal,setModal]=useState(null);
-  const [filters,setFilters]=useState({status:'all',country:'all',rating:0,search:''});
+  const [filters,setFilters]=useState({status:'all',country:'all',tipo:'all',rating:0,search:''});
   const [lastSync,setLastSync]=useState(null);
 
   const persist=useCallback(next=>{setApps(next);store.save(next);},[]);
@@ -445,6 +471,7 @@ export default function App() {
   const filtered=apps.filter(a=>{
     if(filters.status!=='all'&&a.estado!==filters.status)return false;
     if(filters.country!=='all'&&a.pais!==filters.country)return false;
+    if(filters.tipo!=='all'&&(a.tipo||'Easy Apply')!==filters.tipo)return false;
     if(filters.rating>0&&(a.rating||0)<filters.rating)return false;
     if(filters.search){const q=filters.search.toLowerCase();if(!a.titulo?.toLowerCase().includes(q)&&!a.empresa?.toLowerCase().includes(q))return false;}
     return true;
@@ -452,6 +479,7 @@ export default function App() {
 
   const byStatus=STATUS_LIST.reduce((acc,s)=>{acc[s]=apps.filter(a=>a.estado===s).length;return acc;},{});
   const byCountry=Object.keys(FLAGS).reduce((acc,c)=>{const n=apps.filter(a=>a.pais===c).length;if(n)acc[c]=n;return acc;},{});
+  const byTipo=TIPO_LIST.reduce((acc,t)=>{const n=apps.filter(a=>(a.tipo||'Easy Apply')===t).length;if(n)acc[t]=n;return acc;},{});
   const interviews=apps.filter(a=>a.estado==='Entrevista').length;
   const offers=apps.filter(a=>a.estado==='Oferta').length;
 
@@ -515,6 +543,16 @@ export default function App() {
             <div style={{fontSize:9.5,color:T.dim,textTransform:'uppercase',letterSpacing:'0.1em',fontWeight:700,marginBottom:6,paddingLeft:14}}>País</div>
             {Object.entries(byCountry).map(([c,n])=>(
               <SBtn key={c} label={`${FLAGS[c]} ${c}`} count={n} active={filters.country===c} onClick={()=>setFilter('country',filters.country===c?'all':c)}/>
+            ))}
+          </div>
+        )}
+
+        {/* Tipo filters */}
+        {Object.keys(byTipo).length>0&&(
+          <div style={{padding:'14px 10px 4px'}}>
+            <div style={{fontSize:9.5,color:T.dim,textTransform:'uppercase',letterSpacing:'0.1em',fontWeight:700,marginBottom:6,paddingLeft:14}}>Tipo</div>
+            {Object.entries(byTipo).map(([t,n])=>(
+              <SBtn key={t} label={t} count={n} active={filters.tipo===t} dotColor={TIPOS[t].color} onClick={()=>setFilter('tipo',filters.tipo===t?'all':t)}/>
             ))}
           </div>
         )}

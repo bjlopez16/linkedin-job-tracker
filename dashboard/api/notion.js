@@ -39,6 +39,8 @@ function pageToApp(page) {
     notas: txt(p['Notas']),
     aplicadoEn: dte(p['Fecha']) || page.created_time,
     ubicacion: '',
+    tipo: sel(p['Tipo']) || 'Easy Apply',
+    plataforma: txt(p['Plataforma']),
   };
 }
 
@@ -58,6 +60,8 @@ function appToProps(app) {
     'Beneficios':      { rich_text: rt(app.beneficios) },
     'Rating':          { number: app.rating || 0 },
     'Notas':           { rich_text: rt(app.notas) },
+    'Tipo':            { select: { name: app.tipo || 'Easy Apply' } },
+    'Plataforma':      { rich_text: rt(app.plataforma) },
   };
 }
 
