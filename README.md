@@ -58,6 +58,7 @@ Apply to dozens of LinkedIn jobs hands-free, track every application in a live d
 
 - Claude Pro subscription
 - Claude for Chrome extension (required for external/off-LinkedIn applications in v2)
+- **Claude Desktop app open and connected** on the machine you're applying from — required whenever a step needs your local files (CV, photo), even though the session itself runs from the web/mobile chat
 - Notion account (free tier)
 - Vercel account (free tier, optional — for browser deployment)
 
@@ -68,14 +69,17 @@ Apply to dozens of LinkedIn jobs hands-free, track every application in a live d
 2. Answer the questions (5–10 min)
 3. Claude creates your Notion database and connects everything automatically
 4. Save your personalized skill file
-5. Run /linkedin-easy-apply and start applying
+5. Open Claude Desktop and make sure the Chrome connection is on
+6. Run /linkedin-easy-apply and start applying
 ```
 
 Full guide: [SETUP.md](./SETUP.md)
 
 ### Current limitations
 
-As of **v2**, this skill applies both to **LinkedIn Easy Apply** offers and to offers that redirect to an **external company site or ATS** (Greenhouse, Lever, Workday, etc.), using the Claude for Chrome extension. On external sites, the whole flow (form filling, CV/photo upload, cover letter, submission) is automatic — the only pause is when a site requires creating a mandatory account (email + password), or hits a CAPTCHA it can't solve, in which case it asks you to step in briefly. Each application is tagged with its `Tipo` (Easy Apply / Externa) and `Plataforma` (LinkedIn, Greenhouse, Lever, Workday...) so you can filter by it in the dashboard.
+As of **v2**, this skill applies both to **LinkedIn Easy Apply** offers and to offers that redirect to an **external company site or ATS** (Greenhouse, Lever, Workday, etc.), using the Claude for Chrome extension. On external sites, the whole flow (form filling, CV/photo upload, cover letter, submission) is automatic — the only pause is when a site requires creating a mandatory account (email + password), in which case it asks you to step in briefly. Each application is tagged with its `Tipo` (Easy Apply / Externa) and `Plataforma` (LinkedIn, Greenhouse, Lever, Workday...) so you can filter by it in the dashboard.
+
+Offers that hit a blocker the skill can't reliably solve on its own — an unsolvable CAPTCHA, SMS/phone verification, unusual document uploads, a broken form — aren't skipped silently. They're logged during the session and listed in a dedicated **"Pending manual applications"** section of the end-of-session summary document, with title, company, and direct URL, so you can open and finish them yourself.
 
 ### Roadmap & contributions
 
@@ -132,6 +136,7 @@ This skill will keep evolving with real-world usage. If you find it useful, star
 
 - Suscripción Claude Pro
 - Extensión Claude for Chrome (imprescindible para aplicaciones externas/fuera de LinkedIn en v2)
+- **Claude Desktop abierto y conectado** en el equipo desde el que apliques — necesario siempre que un paso requiera tus archivos locales (CV, foto), aunque la sesión en sí se lleve desde el chat web/móvil
 - Cuenta de Notion (plan gratuito funciona)
 - Cuenta de Vercel (gratuito, opcional — para acceso desde el navegador)
 
@@ -142,14 +147,17 @@ This skill will keep evolving with real-world usage. If you find it useful, star
 2. Responde las preguntas (5–10 min)
 3. Claude crea tu base de datos en Notion y lo conecta todo automáticamente
 4. Guarda tu archivo de skill personalizado
-5. Ejecuta /linkedin-easy-apply y empieza a aplicar
+5. Abre Claude Desktop y comprueba que la conexión con Chrome está activa
+6. Ejecuta /linkedin-easy-apply y empieza a aplicar
 ```
 
 Guía completa: [SETUP.md](./SETUP.md)
 
 ### Limitaciones actuales
 
-Desde la **v2**, esta skill aplica tanto a ofertas de **LinkedIn Easy Apply** como a ofertas que redirigen a la **web de la empresa o a un ATS externo** (Greenhouse, Lever, Workday, etc.), usando la extensión Claude for Chrome. En webs externas, todo el proceso (rellenar formulario, subir CV/foto, carta de presentación, envío) es automático — la única pausa es si la web exige crear una cuenta obligatoria (correo + contraseña), o si aparece un CAPTCHA que no puede resolver, momento en el que te pide que intervengas brevemente. Cada aplicación queda etiquetada con su `Tipo` (Easy Apply / Externa) y `Plataforma` (LinkedIn, Greenhouse, Lever, Workday...) para poder filtrarlas en el dashboard.
+Desde la **v2**, esta skill aplica tanto a ofertas de **LinkedIn Easy Apply** como a ofertas que redirigen a la **web de la empresa o a un ATS externo** (Greenhouse, Lever, Workday, etc.), usando la extensión Claude for Chrome. En webs externas, todo el proceso (rellenar formulario, subir CV/foto, carta de presentación, envío) es automático — la única pausa es si la web exige crear una cuenta obligatoria (correo + contraseña), momento en el que te pide que intervengas brevemente. Cada aplicación queda etiquetada con su `Tipo` (Easy Apply / Externa) y `Plataforma` (LinkedIn, Greenhouse, Lever, Workday...) para poder filtrarlas en el dashboard.
+
+Las ofertas que se topan con un bloqueo que la skill no puede resolver de forma fiable —un CAPTCHA sin solución, verificación por SMS/teléfono, documentos poco habituales, un formulario roto— no se descartan en silencio. Quedan registradas durante la sesión y aparecen en un apartado propio, **"Pendientes de aplicación manual"**, dentro del documento de resumen final, con título, empresa y URL directa, para que las abras y las completes tú mismo.
 
 ### Roadmap y contribuciones
 

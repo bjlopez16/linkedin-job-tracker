@@ -120,20 +120,22 @@ Contains `Senior`, `Sr.`, `Principal`, `Director`, `Head of`, `Lead`, `Staff`, `
 
 ## External applications / Aplicaciones externas (v2)
 
-🇬🇧 When an offer has no Easy Apply button but redirects to the company site or an ATS (Greenhouse, Lever, Workday, Ashby, etc.), and you opted in at Step 0, use the **Claude for Chrome** extension:
+🇬🇧 When an offer has no Easy Apply button but redirects to the company site or an ATS (Greenhouse, Lever, Workday, Ashby, etc.), and you opted in at Step 0, use the **Claude for Chrome** extension. **Requires the Claude Desktop app open and connected** on the device you're applying from — needed for local file uploads (CV, photo) even though the session itself runs from web/mobile chat.
 
-- Everything is automatic (fill fields, upload CV/photo, write cover letter, answer screening questions, submit) — **except**: if the site requires creating a mandatory account (email + password), stop and ask the user for credentials before continuing. Also pause on an unsolvable CAPTCHA.
+- Everything is automatic (fill fields, upload CV/photo, write cover letter, answer screening questions, submit) — **except**: if the site requires creating a mandatory account (email + password), stop and ask the user for credentials before continuing.
 - Don't stop for optional logins ("continue as guest") — always choose guest/no account.
+- **Blockers that can't be solved automatically** (unsolvable CAPTCHA, SMS/phone verification, unusual document uploads, a broken form) do **not** interrupt the session either — log the offer to an internal `pending_manual` list (title, company, url, reason) and move on to the next eligible offer. This list becomes a dedicated section in the end-of-session summary document, so the user can open and finish those applications themselves.
 - File paths for CV/photo depend on the device you're applying from — keep a small table like this and ask once per session if unclear:
 
 | Device / Dispositivo | English CV | Spanish CV | Photo |
 |---|---|---|---|
 | `[DEVICE NAME]` | `[PATH TO ENGLISH CV]` | `[PATH TO SPANISH CV]` | `[PATH TO PHOTO]` |
 
-🇪🇸 Cuando una oferta no tiene botón Easy Apply pero redirige a la web de la empresa o a un ATS (Greenhouse, Lever, Workday, Ashby, etc.), y se activó en el Paso 0, usar la extensión **Claude for Chrome**:
+🇪🇸 Cuando una oferta no tiene botón Easy Apply pero redirige a la web de la empresa o a un ATS (Greenhouse, Lever, Workday, Ashby, etc.), y se activó en el Paso 0, usar la extensión **Claude for Chrome**. **Requiere Claude Desktop abierto y conectado** en el dispositivo desde el que se aplica — necesario para subir archivos locales (CV, foto) aunque la sesión se lleve desde el chat web/móvil.
 
-- Todo es automático (rellenar campos, subir CV/foto, escribir carta de presentación, responder screening, enviar) — **excepto**: si la web exige crear una cuenta obligatoria (correo + contraseña), detenerse y pedir las credenciales al usuario antes de continuar. También pausar si aparece un CAPTCHA que no se puede resolver.
+- Todo es automático (rellenar campos, subir CV/foto, escribir carta de presentación, responder screening, enviar) — **excepto**: si la web exige crear una cuenta obligatoria (correo + contraseña), detenerse y pedir las credenciales al usuario antes de continuar.
 - No detenerse por logins opcionales ("continuar como invitado") — elegir siempre invitado/sin cuenta.
+- Los **bloqueos que no se pueden resolver automáticamente** (CAPTCHA sin solución, verificación por SMS/teléfono, documentos poco habituales, un formulario roto) tampoco interrumpen la sesión — registrar la oferta en una lista interna `pending_manual` (título, empresa, url, motivo) y pasar a la siguiente oferta elegible. Esta lista se convierte en un apartado propio del documento de resumen final, para que el usuario pueda abrir y completar esas aplicaciones por su cuenta.
 - Las rutas de CV/foto dependen del dispositivo desde el que se aplique — mantener una tabla como la de arriba y preguntar una vez por sesión si no está claro.
 
 ---
@@ -167,8 +169,8 @@ Contains `Senior`, `Sr.`, `Principal`, `Director`, `Head of`, `Lead`, `Staff`, `
 🇪🇸 Cuando la sesión termina (el usuario dice "para", "termina", o no hay más ofertas):
 
 ### 1. Summary document / Documento de resumen
-🇬🇧 Generate `applications_[YYYY-MM-DD].md` and send with `SendUserFile`
-🇪🇸 Generar `aplicaciones_[YYYY-MM-DD].md` y enviar con `SendUserFile`
+🇬🇧 Generate `applications_[YYYY-MM-DD].md` and send with `SendUserFile`. If the internal `pending_manual` list has entries, add a dedicated section to the document (title, company, URL, reason for each) so the user can open and finish those applications themselves.
+🇪🇸 Generar `aplicaciones_[YYYY-MM-DD].md` y enviar con `SendUserFile`. Si la lista interna `pending_manual` tiene entradas, añadir un apartado propio al documento (título, empresa, URL y motivo de cada una) para que el usuario pueda abrir y completar esas aplicaciones por su cuenta.
 
 ### 2. Write to Notion / Escribir en Notion
 🇬🇧 Use `notion-create-pages` with parent `{"database_id": "[YOUR_NOTION_DATABASE_ID]", "type": "database_id"}`
@@ -216,3 +218,5 @@ Contains `Senior`, `Sr.`, `Principal`, `Director`, `Head of`, `Lead`, `Staff`, `
 4. 🇬🇧 Correct CV per language / 🇪🇸 CV correcto según el idioma de la oferta
 5. 🇬🇧 Skip if work authorization form appears for US/UK / 🇪🇸 Saltar si aparece formulario de autorización de trabajo en US/UK
 6. 🇬🇧 External applications: automatic except mandatory registration — only stop to ask the user if the external site requires creating an account / 🇪🇸 Aplicaciones externas: automático salvo registro obligatorio — solo detenerse a preguntar al usuario si la web externa exige crear una cuenta
+7. 🇬🇧 Unsolvable blockers (CAPTCHA, SMS verification, unusual documents, broken forms) never stop the session — log to `pending_manual` and continue / 🇪🇸 Bloqueos sin solución (CAPTCHA, verificación por SMS, documentos poco habituales, formularios rotos) nunca detienen la sesión — registrar en `pending_manual` y continuar
+8. 🇬🇧 Claude Desktop must be open and connected for external applications (file uploads won't work otherwise) / 🇪🇸 Claude Desktop debe estar abierto y conectado para aplicaciones externas (si no, la subida de archivos no funcionará)
