@@ -1,4 +1,8 @@
-const DB_ID = process.env.NOTION_DATABASE_ID || '34520bfea5154b188a30cf12895a9c3d';
+const DB_ID = process.env.NOTION_DATABASE_ID;
+
+if (!DB_ID) {
+  console.error('NOTION_DATABASE_ID no configurado en las variables de entorno de Vercel.');
+}
 
 async function notionFetch(endpoint, method = 'GET', body, token) {
   const r = await fetch(`https://api.notion.com/v1/${endpoint}`, {
@@ -72,6 +76,7 @@ export default async function handler(req, res) {
   const token = process.env.NOTION_TOKEN;
 
   if (!token) return res.status(500).json({ error: 'NOTION_TOKEN no configurado en Vercel' });
+  if (!DB_ID) return res.status(500).json({ error: 'NOTION_DATABASE_ID no configurado en Vercel' });
 
   try {
     // ── SYNC: pull all pages from Notion DB ──────────────────
